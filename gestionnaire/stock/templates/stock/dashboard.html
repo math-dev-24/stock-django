@@ -1,0 +1,8 @@
+{% extends "stock/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <a href="{% url 'stock:addProduct' %}">Ajouter un produit</a>
+    <span>Nombre de produit{% if count > 1%}s{% endif %} : {{ count }}</span>
+{% endblock %}

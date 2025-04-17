@@ -1,0 +1,67 @@
+{% extends "stock/base.html" %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block content %}
+    <section class="w-full">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Mon compte</h1>
+
+        <div class="bg-white shadow-md rounded-lg p-8">
+            <div class="flex items-center mb-6">
+                <div class="h-16 w-16 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold">
+                    {{ user.username|slice:":1"|upper }}
+                </div>
+                <div class="ml-4">
+                    <h2 class="text-xl font-semibold text-gray-800">{{ user.username }}</h2>
+                    <p class="text-gray-600">{{ user.email }}</p>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 pt-4">
+                <h3 class="text-lg font-medium text-gray-800 mb-3">Informations personnelles</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-500">Nom d'utilisateur</p>
+                        <p class="font-medium">{{ user.username }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Email</p>
+                        <p class="font-medium">{{ user.email }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Date d'inscription</p>
+                        <p class="font-medium">{{ user.date_joined|date:"d/m/Y" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-500">Statut</p>
+                        <p class="font-medium">
+                            {% if user.is_staff %}Administrateur{% else %}Utilisateur{% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex flex-wrap gap-3">
+                <a href="#" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
+                    Modifier le profil
+                </a>
+                <a href="#" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors">
+                    Changer le mot de passe
+                </a>
+                <a href="{% url 'stock:logout' %}" class="px-4 py-2 bg-red-100 text-red-600 rounded-md hover:bg-red-200 transition-colors">
+                    Se déconnecter
+                </a>
+            </div>
+        </div>
+
+        {% if user.is_staff %}
+        <div class="mt-8 bg-white shadow-md rounded-lg p-8">
+            <h3 class="text-lg font-medium text-gray-800 mb-3">Administration</h3>
+            <p class="text-gray-600 mb-4">Vous avez des droits d'administration sur la plateforme.</p>
+            <a href="/admin/" class="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors">
+                Accéder à l'interface d'administration
+            </a>
+        </div>
+        {% endif %}
+    </section>
+{% endblock %}
