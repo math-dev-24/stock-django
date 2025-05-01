@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.section {
+    @apply container mx-auto;
+    h1 {
+        @apply text-2xl font-bold text-gray-800 mb-6;
+    }
+    .content {
+        @apply bg-white shadow-md rounded-lg p-8;
+    }
+}
+
+.btn {
+    @apply border rounded-md py-2 px-4 duration-150 transition-all cursor-pointer;
+}
+
+.btn-primary {
+    @apply  bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.btn-secondary {
+    @apply bg-gray-600 text-white hover:bg-gray-700;
+}
+
+.btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+}
+
+.btn-danger-2{
+    @apply bg-red-100 text-red-600 hover:bg-red-200 border-red-300;
+}
+
+.btn-success {
+    @apply bg-green-600 text-white hover:bg-green-700;
+}
+
+.btn-orange {
+    @apply bg-orange-600 text-white hover:bg-orange-700;
+}
+
+.btn-indigo {
+    @apply bg-indigo-600 text-white hover:bg-indigo-700;
+}
+
+.btn-indigo-outline {
+    @apply bg-transparent text-indigo-600 hover:bg-indigo-500 hover:text-white border-indigo-400;
+}
+
+.callout {
+    @apply p-4 rounded-lg;
+}
+
+.success {
+    @apply bg-green-100 text-green-700;
+}
+
+.error {
+    @apply bg-red-100 text-red-700;
+}
+
+nav {
+    .link {
+        @apply text-gray-600 hover:text-indigo-600 transition-colors duration-200;
+    }
+}
+
+.form-group {
+    @apply mb-4;
+    label {
+        @apply block text-gray-700 text-sm font-medium mb-2;
+    }
+    input, textarea, select {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+    }
+
+}

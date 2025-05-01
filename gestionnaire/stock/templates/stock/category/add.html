@@ -7,17 +7,17 @@
         <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Créer une catégorie</h1>
         <form method="post" class="bg-white shadow-md rounded-lg p-8 space-y-6">
             {% csrf_token %}
-            <div>
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900">
+            <div class="form-group">
+                <label for="name">
                     Nom <span class="text-red-500">*</span>
                 </label>
-                <input required type="text" id="name" name="name" placeholder="Nom" class="w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                <input required type="text" id="name" name="name" placeholder="Outil">
             </div>
-            <div>
-                <label for="description" class="block mb-2 text-sm font-medium text-gray-900">
+            <div class="form-group">
+                <label for="description">
                     Description <span class="text-red-500">*</span>
                 </label>
-                <textarea required id="description" name="description" placeholder="Description" class="w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500"></textarea>
+                <textarea required id="description" name="description" placeholder="Courte description"></textarea>
             </div>
             <button type="submit" class="flex gap-2 items-center justify-center bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><!-- Icon from Gitlab SVGs by GitLab B.V. - https://gitlab.com/gitlab-org/gitlab-svgs/-/blob/main/LICENSE --><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm4 9a.75.75 0 0 1-.75-.75v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5a.75.75 0 0 1 1.5 0v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5A.75.75 0 0 1 8 11" clip-rule="evenodd"/></svg>

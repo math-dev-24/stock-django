@@ -4,3 +4,4 @@ gestionnaire/node_modules
 gestionnaire/db.sqlite3
 gestionnaire/package-lock.json
 gestionnaire/yarn.lock
+gestionnaire/stock/migrations
