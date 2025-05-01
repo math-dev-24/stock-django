@@ -1,7 +1,7 @@
 .idea
 .venv
-gestionnaire/node_modules
-gestionnaire/db.sqlite3
-gestionnaire/package-lock.json
-gestionnaire/yarn.lock
-gestionnaire/stock/migrations
+src/node_modules
+src/db.sqlite3
+src/package-lock.json
+src/yarn.lock
+src/stock/migrations

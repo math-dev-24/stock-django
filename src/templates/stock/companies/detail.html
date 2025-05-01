@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ company.name }}{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>
+            Socièté - {{company.name}}
+        </h1>
+
+    <div class="content">
+        <div class="w-[98%] mx-auto rounded border border-gray-200 p-4 my-4 text-sm text-gray-600">
+            <p>Nom : {{ company.name }}</p>
+            <p>Email : {{ company.email }}</p>
+            <p>Téléphone : {{ company.phone }}</p>
+            <p>{{company.members.count}} membre{{ company.members.count|pluralize }} :</p>
+            <ul class="list-disc ml-4">
+                {% for member in company.members.all %}
+                    <li>
+                        {{ member.username }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div>
+            <h2 class="text-xl font-bold">Locations :</h2>
+            <p>A venir</p>
+        </div>
+    </div>
+{% endblock %}
