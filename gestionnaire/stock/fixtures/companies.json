@@ -1,0 +1,62 @@
+[
+  {
+    "model": "stock.company",
+    "pk": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "fields": {
+      "name": "Tech Solutions SAS",
+      "email": "contact@techsolutions.fr",
+      "phone": "0123456789",
+      "created_at": "2025-01-10T09:00:00.000Z",
+      "updated_at": "2025-01-10T09:00:00.000Z",
+      "members": [1]
+    }
+  },
+  {
+    "model": "stock.company",
+    "pk": "e86b1b4c-0e34-4ffc-9043-a5e621c4d6c3",
+    "fields": {
+      "name": "Digital Agency SARL",
+      "email": "info@digitalagency.fr",
+      "phone": "0123456788",
+      "created_at": "2025-01-15T10:30:00.000Z",
+      "updated_at": "2025-01-15T10:30:00.000Z",
+      "members": []
+    }
+  },
+  {
+    "model": "stock.company",
+    "pk": "d921d5cc-4050-4a80-9b4c-67a47832fd2d",
+    "fields": {
+      "name": "Consulting Group",
+      "email": "contact@consultinggroup.fr",
+      "phone": "0123456787",
+      "created_at": "2025-02-01T14:15:00.000Z",
+      "updated_at": "2025-02-01T14:15:00.000Z",
+      "members": []
+    }
+  },
+  {
+    "model": "stock.company",
+    "pk": "c7fb8cea-43a1-4695-8ad8-84263de40538",
+    "fields": {
+      "name": "Marketing Experts",
+      "email": "hello@marketingexperts.fr",
+      "phone": "0123456786",
+      "created_at": "2025-02-10T11:45:00.000Z",
+      "updated_at": "2025-02-10T11:45:00.000Z",
+      "members": []
+    }
+  },
+  {
+    "model": "stock.company",
+    "pk": "b3cb7d2b-5d9f-48c1-92f9-8e6e3c4af8d1",
+    "fields": {
+      "name": "Développement Web SAS",
+      "email": "contact@devweb.fr",
+      "phone": "0123456785",
+      "created_at": "2025-03-05T08:30:00.000Z",
+      "updated_at": "2025-03-05T08:30:00.000Z",
+      "members": []
+    }
+  }
+]

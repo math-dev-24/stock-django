@@ -1,7 +1,90 @@
 {% extends "stock/base.html" %}
 
-{% block title %} Gestionnaire de stock {% endblock %}
+{% block title %}Gestionnaire de stock{% endblock %}
 
 {% block content %}
-    <h1>Liste des Produits</h1>
+<section class="w-full">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+        <span class="text-blue-800">{{ count }}</span> | Liste des Produits
+    </h1>
+
+    <div class="bg-white shadow-md rounded-lg p-8">
+        {% if products %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
+            {% for product in products %}
+                <div class="bg-slate-50 rounded-lg overflow-hidden transition-shadow duration-300 relative border border-gray-200 hover:outline hover:outline-blue-500">
+                    <div class="p-4 space-y-2">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                            <a href="{% url 'stock:product' product.id %}" class="hover:underline">
+                                {{ product.name }}
+                            </a>
+                        </h2>
+                        <p class="text-gray-600 mb-4">{{ product.description }}</p>
+                        <p class="text-sm text-slate-400">Réf : {{ product.sku }}</p>
+                        <p class="text-sm font-bold">Prix: {{ product.prices.first.price }} €</p>
+                        {% if product.category %}
+                            <div>
+                                <p class="text-xs font-bold">Catégories:</p>
+                                <p class="text-xs text-blue-500">{{ product.category.all|join:", " }}</p>
+                            </div>
+                        {% endif %}
+
+                        {% if user_name %}
+                            <div class="mt-auto pt-3 flex gap-2 border-t border-gray-200 pt-3 justify-between">
+                                <a href="{% url 'stock:addProduct' %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                    Modifier
+                                </a>
+                                <form method="POST" action="{% url 'stock:productDelete' product.id %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-red-600 hover:text-red-800 font-medium flex items-center bg-transparent border-0 p-0 cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 17h2V8H9zm4 0h2V8h-2zm-8 4V6H4V4h5V3h6v1h5v2h-1v15z"/></svg>
+                                        Supprimer
+                                    </button>
+                                </form>
+                                <a href="{% url 'stock:product' product.id %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center absolute top-2 right-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        <div class="mt-4 flex gap-2 justify-around border-t border-gray-200 mt-8 pt-3 pb-6">
+            <a href='{%if page == 1 %}?page=1{% else %}?page={{ page|add:"-1" }}{% endif %}' class='text-blue-600 hover:text-blue-800 font-medium flex items-center'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/></svg>
+                Précédent
+            </a>
+            <p class="text-center">{{ page }} sur {{ max_page }}</p>
+            <a href='{%if page == max_page %}?page={{ max_page }}{% else %}?page={{ page|add:"1" }}{% endif %}' class='text-blue-600 hover:text-blue-800 font-medium flex items-center'>
+                Suivant
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+            </a>
+        </div>
+
+    {% else %}
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-sm text-yellow-700">
+                        Aucun produit trouvé. Veuillez en ajouter.
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+
+
+</section>
 {% endblock %}

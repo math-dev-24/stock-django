@@ -1,0 +1,62 @@
+[
+  {
+    "model": "stock.product",
+    "pk": "a7c86c28-f4e1-4e3a-9f17-9b89d7a30425",
+    "fields": {
+      "name": "Smartphone XYZ",
+      "description": "Le dernier smartphone avec écran 6.5 pouces et appareil photo 48MP",
+      "sku": "PHONE-XYZ-001",
+      "created_at": "2025-05-01T10:15:00Z",
+      "updated_at": "2025-05-01T10:15:00Z",
+      "category": [1, 2]
+    }
+  },
+  {
+    "model": "stock.product",
+    "pk": "b5c4e3d2-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
+    "fields": {
+      "name": "Ordinateur portable Omen",
+      "description": "Ordinateur portable puissant avec GPU dédié pour le gaming",
+      "sku": "LAPTOP-OMEN-002",
+      "created_at": "2025-05-01T10:30:00Z",
+      "updated_at": "2025-05-01T10:30:00Z",
+      "category": [2]
+    }
+  },
+  {
+    "model": "stock.product",
+    "pk": "c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8",
+    "fields": {
+      "name": "Tablette Pro",
+      "description": "Tablette pour professionnels avec stylet inclus",
+      "sku": "TABLET-PRO-003",
+      "created_at": "2025-05-01T10:45:00Z",
+      "updated_at": "2025-05-01T10:45:00Z",
+      "category": [1, 2]
+    }
+  },
+  {
+    "model": "stock.product",
+    "pk": "d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9",
+    "fields": {
+      "name": "T-shirt Premium",
+      "description": "T-shirt en coton bio de haute qualité",
+      "sku": "TSHIRT-PREM-004",
+      "created_at": "2025-05-01T11:00:00Z",
+      "updated_at": "2025-05-01T11:00:00Z",
+      "category": [3]
+    }
+  },
+  {
+    "model": "stock.product",
+    "pk": "e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0",
+    "fields": {
+      "name": "Lampe intelligente",
+      "description": "Lampe connectée avec contrôle vocal et millions de couleurs",
+      "sku": "LAMP-SMART-005",
+      "created_at": "2025-05-01T11:15:00Z",
+      "updated_at": "2025-05-01T11:15:00Z",
+      "category": [1, 4]
+    }
+  }
+]

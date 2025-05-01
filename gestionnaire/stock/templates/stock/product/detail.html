@@ -1,0 +1,56 @@
+{% extends "stock/base.html" %}
+
+{% block title %} {{ product.name }} {% endblock %}
+
+{% block content %}
+    <section class="w-full">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">{{ product.name }}</h1>
+            <div class="bg-white shadow-md rounded-lg p-8">
+                <div>
+                <p class="text-sm text-gray-600">Réf : {{ product.sku }}</p>
+                <p class="text-sm font-bold">Prix: {{ product.prices.first.price }} €</p>
+                {% if product.category %}
+                    <div>
+                        <p class="text-xs font-bold">Catégories:</p>
+                        <p class="text-xs text-blue-500">{{ product.category.all|join:", " }}</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="w-[98%] mx-auto rounded border border-gray-200 p-4 mt-4">
+                <h1 class="text-xl font-semibold">Evolution du prix :</h1>
+                <form method="post" action="{% url 'stock:product' product.id %}" class="mt-2 text-sm text-gray-600 grid grid-cols-5 gap-1">
+                    {% csrf_token %}
+                        <label for="price" class="block text-end flex items-center justify-end col-span-1">
+                            Nouveau prix <span class="text-red-500"> * </span> :
+                        </label>
+                        <input required type="number" step="0.01" id="price" name="price" placeholder="Nouveau prix" class="col-span-3 w-full border border-gray-300 rounded-lg p-1 focus:border-indigo-500 focus:ring-indigo-500">
+                    <button type="submit" class="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><!-- Icon from Gitlab SVGs by GitLab B.V. - https://gitlab.com/gitlab-org/gitlab-svgs/-/blob/main/LICENSE --><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm4 9a.75.75 0 0 1-.75-.75v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5a.75.75 0 0 1 1.5 0v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5A.75.75 0 0 1 8 11" clip-rule="evenodd"/></svg>
+                    </button>
+                </form>
+                <div class="grid grid-cols-2 gap-2 w-2/3 mt-2 w-full">
+                    <p class="font-semibold">Date</p>
+                    <p class="font-semibold">Prix</p>
+                    <p class="col-span-2 h-0.5 bg-blue-200 rounded-lg"></p>
+                    {% for price in product.prices.all|dictsortreversed:"created_at" %}
+                        <p>{{ price.created_at }}</p>
+                        <p>{{ price.price }} €</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Zone de danger -->
+            <div class="w-[98%] mx-auto rounded border border-red-300 drop-shadow p-4 mt-4 bg-red-100 space-y-4">
+                <h2 class="text-xl font-bold">Zone de danger !</h2>
+                <form method="post" action="{% url 'stock:productDelete' product.id %}" class="mt-2 text-sm text-gray-600 grid grid-cols-3 gap-1">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center justify-center gap-2 w-full bg-red-600 hover:bg-red-700 text-white font-medium p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 17h2V8H9zm4 0h2V8h-2zm-8 4V6H4V4h5V3h6v1h5v2h-1v15z"/></svg>
+                        Supprimer le produit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,42 @@
+[
+  {
+    "model": "stock.category",
+    "pk": 1,
+    "fields": {
+      "name": "Électronique",
+      "description": "Tous les produits électroniques, gadgets et appareils",
+      "created_at": "2025-05-01T09:00:00Z",
+      "updated_at": "2025-05-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "stock.category",
+    "pk": 2,
+    "fields": {
+      "name": "Informatique",
+      "description": "Ordinateurs, périphériques et logiciels",
+      "created_at": "2025-05-01T09:15:00Z",
+      "updated_at": "2025-05-01T09:15:00Z"
+    }
+  },
+  {
+    "model": "stock.category",
+    "pk": 3,
+    "fields": {
+      "name": "Vêtements",
+      "description": "Tout type de vêtements et accessoires de mode",
+      "created_at": "2025-05-01T09:30:00Z",
+      "updated_at": "2025-05-01T09:30:00Z"
+    }
+  },
+  {
+    "model": "stock.category",
+    "pk": 4,
+    "fields": {
+      "name": "Maison",
+      "description": "Produits pour la maison et le jardin",
+      "created_at": "2025-05-01T09:45:00Z",
+      "updated_at": "2025-05-01T09:45:00Z"
+    }
+  }
+]

@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="fr">
 <head>
@@ -5,7 +6,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="{% static 'stock/css/main.css' %}">
+    {% block extra_css %}{% endblock %}
     <title>{% block title %}Gestion de Stock{% endblock %}</title>
 </head>
 <body class="flex flex-col min-h-screen bg-gray-50 font-sans">
@@ -17,6 +19,8 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'stock:dashboard' %}" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Tableau de bord</a></li>
                     <li><a href="{% url 'stock:account' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">Mon compte</a></li>
+                    <li><a href="{% url 'stock:logout' %}" class="text-gray-600 hover:text-red-600 transition-colors duration-200">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Huge Icons by Hugeicons - undefined --><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.023 5.5a9 9 0 1 0 9.953 0M12 2v8" color="currentColor"/></svg>                    </a></li>
                 {% else %}
                     <li><a href="{% url 'stock:login' %}" class="text-gray-600 hover:text-indigo-600 transition-colors duration-200">Connexion</a></li>
                     <li><a href="{% url 'stock:register' %}" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors duration-200">Inscription</a></li>
