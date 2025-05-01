@@ -10,6 +10,7 @@ Création d'un application web pour gérer les stocks de produits.
 - gestion des alertes
 - gestion des données
 
+Gestion du projet : [lien notion](https://mathieu24dev.notion.site/Gestion-de-stock-x-Django-1e6c4218a91480dea221c17419013a28?pvs=4)
 
 ## Installation
 
