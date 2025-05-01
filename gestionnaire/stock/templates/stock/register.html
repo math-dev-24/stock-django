@@ -1,55 +1,52 @@
-{% extends "stock/base.html" %}
+{% extends 'stock/base.html' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}
+S'inscrire
+{% endblock %}
 
 {% block content %}
-    <section class="section">
-        <h1>Créer un compte</h1>
-        
-        <form method="post" class="content">
-            {% csrf_token %}
-            
-            {% if error_message %}
-                <div class="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
-                    {{ error_message }}
+<div class="section">
+    <h1 class="text-center">S'inscrire</h1>
+    <div class="content mx-auto max-w-xl">
+            <form method="post">
+                {% csrf_token %}
+
+                {% for field in form %}
+                <div class="mb-4">
+                    <label for="{{ field.id_for_label }}" class="block text-gray-700 text-sm font-medium mb-2">
+                        {{ field.label }}
+                    </label>
+                    {{ field }}
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <p class="text-red-600 text-xs mt-1">{{ error }}</p>
+                        {% endfor %}
+                    {% endif %}
                 </div>
-            {% endif %}
-            
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700 text-sm font-medium mb-2">Nom d'utilisateur</label>
-                <input type="text" name="username" id="username" required
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            </div>
-            
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Adresse email</label>
-                <input type="email" name="email" id="email" required
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            </div>
-            
-            <div class="mb-4">
-                <label for="password1" class="block text-gray-700 text-sm font-medium mb-2">Mot de passe</label>
-                <input type="password" name="password1" id="password1" required
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            </div>
-            
-            <div class="mb-6">
-                <label for="password2" class="block text-gray-700 text-sm font-medium mb-2">Confirmer le mot de passe</label>
-                <input type="password" name="password2" id="password2" required
-                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-            </div>
-            
-            <div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                    S'inscrire
-                </button>
-            </div>
-            
-            <div class="text-center mt-6">
+                {% endfor %}
+
+                <div class="mt-6">
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Se connecter
+                    </button>
+                </div>
+                {% if form.non_field_errors %}
+                    <div class="mb-4 p-3 bg-red-100 text-red-700 rounded my-4 flex flex-col gap-2">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </form>
+
+            <div class="mt-4 text-center">
                 <p class="text-sm text-gray-600">
-                    Déjà inscrit? <a href="{% url 'stock:login' %}" class="text-blue-600 hover:underline">Se connecter</a>
+                    Vous avez déjà un compte ?
+                    <a href="{% url 'stock:login' %}" class="text-blue-600 hover:underline">
+                        Connectez-vous ici
+                    </a>
                 </p>
             </div>
-        </form>
-    </section>
+    </div>
+</div>
 {% endblock %}
