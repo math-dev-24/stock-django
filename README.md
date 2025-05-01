@@ -56,29 +56,12 @@ Affichage des données de façon lisible et agréable pour l'utilisateur avec la
 # Base de données
 ![Schéma de base de données](./demo/bdd.png)
 
-# Développement / TODO
+# Demo 
+### Vue accueil
+![HomePage](./demo/home.png)
 
-- [x] Mise en place de tailwindcss
-- [x] Mise en place de la gestion des utilisateurs
-- [x] Mise en place des pages de connexion et d'inscription
-- [x] Mise en place du dashboard
-- [ ] Produits
-  - [x] Création
-  - [ ] Modification
-  - [x] Suppression
-- [ ] Catégories
- - [x] Création
- - [ ] Modification
- - [ ] Suppression
-- [ ] Entreprises
- - [ ] Création
- - [ ] Modification
- - [ ] Suppression
+### Vue dashboard
+![Dashboard](./demo/dashboard.png)
 
-# Design system 
-@TODO
-
-Buttons :
-- Primary
-- Secondary
-- orange
+## Vue détaillée produit
+![detail-product](./demo/detail-product.png)
