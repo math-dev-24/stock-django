@@ -1,0 +1,135 @@
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django import forms
+
+
+class UserLoginForm(AuthenticationForm):
+    """Formulaire pour l'authentification des utilisateurs existants"""
+    input_classes = "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': input_classes,
+                'placeholder': "Nom d'utilisateur",
+                'autofocus': True
+            }
+        )
+    )
+
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': input_classes,
+                'placeholder': 'Mot de passe'
+            }
+        )
+    )
+
+    error_messages = {
+        'invalid_login': "Veuillez entrer un nom d'utilisateur et un mot de passe corrects. "
+                         "Notez que les deux champs peuvent être sensibles à la casse.",
+        'inactive': "Ce compte est inactif.",
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Appliquer les classes à tous les champs
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = self.input_classes
+            # Les labels seront stylisés dans le template
+
+
+class UserSignup(UserCreationForm):
+    """Formulaire pour la création de nouveaux utilisateurs"""
+    input_classes = "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': input_classes,
+                'placeholder': "Choisissez un nom d'utilisateur"
+            }
+        ),
+        help_text="150 caractères maximum. Lettres, chiffres et @/./+/-/_ uniquement."
+    )
+
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': input_classes,
+                'placeholder': 'Votre adresse email'
+            }
+        ),
+        help_text="Entrez une adresse email valide."
+    )
+
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': input_classes,
+                'placeholder': 'Créez un mot de passe'
+            }
+        ),
+        help_text="Votre mot de passe doit contenir au moins 8 caractères et ne peut pas être entièrement numérique."
+    )
+
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                'class': input_classes,
+                'placeholder': 'Confirmez votre mot de passe'
+            }
+        ),
+        help_text="Entrez le même mot de passe que précédemment, pour vérification."
+    )
+
+    class Meta:
+        model = get_user_model()
+        fields = ("username", "email", "password1", "password2")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Personnaliser les labels
+        self.fields['username'].label = "Nom d'utilisateur"
+        self.fields['email'].label = "Adresse email"
+        self.fields['password1'].label = "Mot de passe"
+        self.fields['password2'].label = "Confirmation du mot de passe"
+
+        if 'help_texts' in self.Meta.__dict__:
+            for field, help_text in self.Meta.help_texts.items():
+                self.fields[field].help_text = help_text
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not email:
+            raise ValidationError("L'adresse email est obligatoire.")
+
+        user = get_user_model()
+        if user.objects.filter(email=email).exists():
+            raise ValidationError("Cette adresse email est déjà utilisée.")
+
+        return email
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not username:
+            raise ValidationError("Le nom d'utilisateur est obligatoire.")
+        return username
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('password1')
+        password2 = cleaned_data.get('password2')
+
+        if not password1:
+            self.add_error('password1', "Le mot de passe est obligatoire.")
+
+        if not password2:
+            self.add_error('password2', "La confirmation du mot de passe est obligatoire.")
+
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', "Les mots de passe ne correspondent pas.")
+
+        return cleaned_data
