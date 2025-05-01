@@ -11,9 +11,13 @@
                 <p class="text-sm text-gray-600">Réf : {{ product.sku }}</p>
                 <p class="text-sm font-bold">Prix: {{ product.prices.first.price }} €</p>
                 {% if product.category %}
-                    <div>
-                        <p class="text-xs font-bold">Catégories:</p>
-                        <p class="text-xs text-blue-500">{{ product.category.all|join:", " }}</p>
+                    <div class="my-4">
+                        <p class=font-bold">Catégories:</p>
+                        <div>
+                            {% for category in product.category.all %}
+                                <span class="badge badge-emerald">{{ category }}</span>
+                            {% endfor %}
+                        </div>
                     </div>
                 {% endif %}
             </div>

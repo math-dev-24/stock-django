@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import AddProductForm
+from .forms import AddProductForm, AddCategoryForm
 from .models import Product, Category, Company
 
 from math import floor
@@ -26,7 +26,6 @@ def index(request):
     }
 
     return render(request, 'stock/index.html', context)
-
 
 
 @login_required
@@ -60,18 +59,16 @@ def dashboard_view(request):
 @login_required
 def add_category_view(request):
     if request.method == 'POST':
-        category_name = request.POST.get('name')
-        category_description = request.POST.get('description')
-
-        if category_name is None or category_description is None:
-            messages.error(request, "Veuillez remplir tous les champs.")
-            return render(request, "stock/category/add.html")
-        else:
-            category = Category.create_category(category_name, category_description)
-            messages.success(request, f"La catégorie \"{category.name}\" a été ajoutée avec succès.")
+        form = AddCategoryForm(request.POST)
+        if form.is_valid():
+            form.save(commit=True)
+            messages.success(request, f"La catégorie {form.cleaned_data['name']} a été ajoutée avec succès.")
             return redirect('stock:dashboard')
+        else:
+            return render(request, "stock/category/add.html", context={"form": form})
 
-    return render(request, "stock/category/add.html")
+    form = AddCategoryForm()
+    return render(request, "stock/category/add.html", context={"form": form})
 
 
 @login_required

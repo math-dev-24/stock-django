@@ -4,4 +4,4 @@ src/node_modules
 src/db.sqlite3
 src/package-lock.json
 src/yarn.lock
-src/stock/migrations
+src/**/migrations

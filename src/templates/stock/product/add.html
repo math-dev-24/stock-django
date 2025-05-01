@@ -3,17 +3,23 @@
 {% block title %} Ajouter un produit {% endblock %}
 
 {% block content %}
-    <section class="w-full max-w-md mx-auto">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Ajouter un produit</h1>
-        <form method="post" class="bg-white shadow-md rounded-lg p-8 space-y-6">
+    <section class="section">
+        <h1 class="text-center">Ajouter un produit</h1>
+        <form method="post" class="content">
             {% csrf_token %}
-
             {{ form.as_p }}
 
-            <button type="submit" class="flex items-center justify-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+            <button type="submit" class="btn btn-success">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><!-- Icon from Gitlab SVGs by GitLab B.V. - https://gitlab.com/gitlab-org/gitlab-svgs/-/blob/main/LICENSE --><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm4 9a.75.75 0 0 1-.75-.75v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5a.75.75 0 0 1 1.5 0v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5A.75.75 0 0 1 8 11" clip-rule="evenodd"/></svg>
-                Ajouter
+                <span>Ajouter</span>
             </button>
+            {% if form.non_field_errors %}
+                    <div class="mb-4 p-3 bg-red-100 text-red-700 rounded my-4 flex flex-col gap-2">
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+            {% endif %}
         </form>
     </section>
 {% endblock %}

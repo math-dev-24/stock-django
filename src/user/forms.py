@@ -33,12 +33,14 @@ class UserLoginForm(AuthenticationForm):
         'inactive': "Ce compte est inactif.",
     }
 
+    class Meta:
+        model = get_user_model()
+        fields = ('username', 'password')
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Appliquer les classes à tous les champs
         for field_name, field in self.fields.items():
             field.widget.attrs['class'] = self.input_classes
-            # Les labels seront stylisés dans le template
 
 
 class UserSignup(UserCreationForm):
@@ -51,8 +53,7 @@ class UserSignup(UserCreationForm):
                 'class': input_classes,
                 'placeholder': "Choisissez un nom d'utilisateur"
             }
-        ),
-        help_text="150 caractères maximum. Lettres, chiffres et @/./+/-/_ uniquement."
+        )
     )
 
     email = forms.EmailField(
@@ -61,8 +62,7 @@ class UserSignup(UserCreationForm):
                 'class': input_classes,
                 'placeholder': 'Votre adresse email'
             }
-        ),
-        help_text="Entrez une adresse email valide."
+        )
     )
 
     password1 = forms.CharField(
@@ -71,8 +71,7 @@ class UserSignup(UserCreationForm):
                 'class': input_classes,
                 'placeholder': 'Créez un mot de passe'
             }
-        ),
-        help_text="Votre mot de passe doit contenir au moins 8 caractères et ne peut pas être entièrement numérique."
+        )
     )
 
     password2 = forms.CharField(
@@ -81,8 +80,7 @@ class UserSignup(UserCreationForm):
                 'class': input_classes,
                 'placeholder': 'Confirmez votre mot de passe'
             }
-        ),
-        help_text="Entrez le même mot de passe que précédemment, pour vérification."
+        )
     )
 
     class Meta:
@@ -91,15 +89,8 @@ class UserSignup(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Personnaliser les labels
-        self.fields['username'].label = "Nom d'utilisateur"
-        self.fields['email'].label = "Adresse email"
-        self.fields['password1'].label = "Mot de passe"
-        self.fields['password2'].label = "Confirmation du mot de passe"
-
-        if 'help_texts' in self.Meta.__dict__:
-            for field, help_text in self.Meta.help_texts.items():
-                self.fields[field].help_text = help_text
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = self.input_classes
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

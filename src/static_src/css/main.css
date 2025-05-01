@@ -14,34 +14,42 @@
 
 .btn {
     @apply border rounded-md py-2 px-4 duration-150 transition-all cursor-pointer;
+    @apply flex items-center justify-center gap-2 w-full;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+    span {
+        @apply text-sm block;
+    }
+    svg {
+        @apply block;
+    }
 }
 
 .btn-primary {
-    @apply  bg-blue-600 text-white hover:bg-blue-700;
+    @apply  bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
 }
 
 .btn-secondary {
-    @apply bg-gray-600 text-white hover:bg-gray-700;
+    @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
 }
 
 .btn-danger {
-    @apply bg-red-600 text-white hover:bg-red-700;
+    @apply bg-red-600 text-white hover:bg-red-700  focus:ring-red-500;
 }
 
 .btn-danger-2{
-    @apply bg-red-100 text-red-600 hover:bg-red-200 border-red-300;
+    @apply bg-red-100 text-red-600 hover:bg-red-200 border-red-300  focus:ring-red-500;
 }
 
 .btn-success {
-    @apply bg-green-600 text-white hover:bg-green-700;
+    @apply bg-green-600 text-white hover:bg-green-700  focus:ring-green-500;
 }
 
 .btn-orange {
-    @apply bg-orange-600 text-white hover:bg-orange-700;
+    @apply bg-orange-600 text-white hover:bg-orange-700  focus:ring-orange-500;
 }
 
 .btn-indigo {
-    @apply bg-indigo-600 text-white hover:bg-indigo-700;
+    @apply bg-indigo-600 text-white hover:bg-indigo-700  focus:ring-indigo-500;
 }
 
 .btn-indigo-outline {
@@ -74,4 +82,36 @@ nav {
     input, textarea, select {
         @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
     }
+}
+
+.badge {
+    @apply inline-block px-3 py-1 text-xs font-semibold text-white uppercase rounded-full;
+}
+
+.badge-primary {
+    @apply bg-blue-600 text-white;
+}
+
+.badge-secondary {
+    @apply bg-gray-600 text-white;
+}
+
+.badge-danger {
+    @apply bg-red-600 text-white;
+}
+
+.badge-success {
+    @apply bg-green-600 text-white;
+}
+
+.badge-orange {
+    @apply bg-orange-600 text-white;
+}
+
+.badge-indigo {
+    @apply bg-indigo-600 text-white;
+}
+
+.badge-emerald {
+    @apply bg-emerald-600 text-white;
 }
