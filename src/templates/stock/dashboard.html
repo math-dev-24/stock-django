@@ -5,13 +5,13 @@
 {% block content %}
     <!-- Boutons actions -->
     <div class="border rounded border-slate-300 drop-shadow py-6 px-4 mt-4 bg-white my-6 flex gap-2">
-        <a href="{% url 'stock:addProduct' %}" class="btn btn-primary" >
+        <a href="{% url 'catalog:product_add' %}" class="btn btn-primary" >
             Ajouter un produit
         </a>
-        <a href="{% url 'stock:addCategory' %}" class="btn btn-orange" >
+        <a href="{% url 'catalog:category_add' %}" class="btn btn-orange" >
             Ajouter une catégorie
         </a>
-        <a href="{% url 'stock:addCompany' %}" class="btn btn-success" >
+        <a href="{% url 'order:company_add' %}" class="btn btn-success" >
             Ajouter une société
         </a>
     </div>
@@ -42,7 +42,7 @@
         <ul class="list-disc ml-4">
             {% for company in companies.list %}
                 <li class="text-sm">
-                    <a href="{% url 'stock:companies' company.id %}" class="text-blue-500 hover:text-blue-600">
+                    <a href="{% url 'catalog:company' company.id %}" class="text-blue-500 hover:text-blue-600">
                         {{ company.name }} - {{ company.members.count }} membre{{ company.members.count|pluralize }}
                     </a>
                 </li>
