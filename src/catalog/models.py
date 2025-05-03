@@ -20,6 +20,11 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    class Unit(models.TextChoices):
+        LITER = "liter", "Litre"
+        WEIGHT = "weight", "Poids"
+        PIECE = "piece", "Pièce"
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=150, verbose_name="Nom du produit")
     description = models.TextField(blank=True, null=True, verbose_name="Description")
@@ -27,6 +32,7 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
     category = models.ManyToManyField(Category, related_name="products", verbose_name="Catégories")
+    unit = models.CharField(max_length=50, choices=Unit.choices, verbose_name="Unit", default=Unit.PIECE)
 
     def __str__(self):
         return self.name

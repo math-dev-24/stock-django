@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 import uuid
-
+from catalog.models import Product
 
 class Company(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -19,3 +19,47 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class StateOrder(models.Model):
+    class Group(models.TextChoices):
+        OPEN = "Open", "Open"
+        PENDING = "Pending", "Pending"
+        BLOCKED = "Blocked", "Blocked"
+        FINISHED = "Finished", "Finished"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    group_state = models.CharField(max_length=20, choices=Group.choices, default=Group.OPEN)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
+
+
+class Order(models.Model):
+    class VAT(models.TextChoices):
+        REDUCED = "5.5", "Réduit 5.5%"
+        INTERMEDIATE = "10", "Intermédiaire 10%"
+        NORMAL = "20", "Normal 20%"
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    reference = models.CharField(max_length=150, verbose_name="Référence")
+    from_company = models.ForeignKey(Company, related_name="orders", on_delete=models.CASCADE)
+    to_company = models.ForeignKey(Company, related_name="orders", on_delete=models.CASCADE)
+    state = models.ForeignKey(StateOrder, related_name="lines", on_delete=models.CASCADE)
+    vat = models.CharField(max_length=20, choices=VAT.choices, default=VAT.NORMAL)
+    ttc = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Toutes taxes comprises")
+    ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Hors Taxe")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
+
+
+class LineOrder(models.Model):
+    id = models.Index(models.UUIDField(primary_key=True, editable=False))
+    product = models.ForeignKey(Product, related_name="orders", on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, related_name="lines", on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    comment = models.TextField(verbose_name="Commentaire")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
+
+
