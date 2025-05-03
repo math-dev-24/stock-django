@@ -18,7 +18,7 @@
     <main class="flex m-0 p-0 w-full">
     <!--Navigation-->
         <div
-                class="h-[100Vh] min-w-[200px] flex flex-col justify-between border-r-2 border-r-slate-300 drop-shadow py-4 bg-gray-200"
+                class="min-h-[100Vh] min-w-[200px] flex flex-col justify-between border-r-2 border-r-slate-300 drop-shadow py-4 bg-gray-200"
         >
             <div class="mx-auto text-center">
                 <span class="font-semibold">Bonjour {{ user.username }}</span>
@@ -44,7 +44,7 @@
                 <a href="{% url 'stock:dashboard' %}" class="{% active_link 'stock:dashboard' 'current_link' 'link-dash' %}">Dashboard</a>
                 <a href="{% url 'user:profile' %}" class="{% active_link 'user:profile' 'current_link' 'link-dash' %}">Mon compte</a>
                 <span class="separator"></span>
-                <span class="ml-4 font-semibold text-sm">Produits</span>
+                <span class="ml-4 font-semibold text-sm">Général</span>
                 <a href="{% url 'catalog:product_list' %}" class="{% active_link 'catalog:product_list' 'current_link' 'link-dash' strict=True %}">
                     <span>Mes produits</span>
                     <span class="badge badge-indigo">{{ nombre_produits }}</span>
@@ -53,11 +53,17 @@
                     <span>Mes catégories</span>
                     <span class="badge badge-indigo">{{ nombre_categories }}</span>
                 </a>
-                <span class="separator"></span>
-                <span class="ml-4 font-semibold text-sm">Stock</span>
                 <a href="{% url 'order:company_list' %}" class="{% active_link 'order:company_list' 'current_link' 'link-dash' strict=True %}">
                     <span>Mes sociétés</span>
                     <span class="badge badge-indigo">{{ nombre_company }}</span>
+                </a>
+                <span class="separator"></span>
+                <span class="ml-4 font-semibold text-sm">Stock</span>
+                <a href="#" class="link-dash">
+                    Stocks
+                </a>
+                <a class="link-dash">
+                    Ventes
                 </a>
                 <span class="separator"></span>
                 <a href="{% url 'user:logout' %}" class="{% active_link 'user:logout' 'current_link' 'link-dash'%}">Déconnexion</a>

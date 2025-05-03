@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from catalog.forms import AddProductForm, AddCategoryForm
+from catalog.forms import AddProductForm, AddCategoryForm, EditProductForm
 from catalog.models import Product, Category
 from math import floor
 
@@ -126,3 +126,37 @@ def add_price_to_product(request, product_id):
         product.prices.create(price=price)
         messages.success(request, f"Le prix {price}€ a été ajouté avec succès.")
         return redirect('catalog:product_detail', product_id)
+
+
+@login_required
+def edit_product(request, id):
+    product = Product.objects.get(pk=id)
+
+    if request.method == 'POST':
+        form = EditProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Le produit \"{product.name}\" a été modifié avec succès.")
+            return redirect('catalog:product_detail', id=id)
+        else:
+            return render(request, "catalog/product/edit.html", context={"form": form, "product": product})
+
+    form = EditProductForm(instance=product)
+    return render(request, "catalog/product/edit.html", context={"form": form, "product": product})
+
+
+@login_required
+def edit_category(request, id):
+    category = Category.objects.get(pk=id)
+
+    if request.method == 'POST':
+        form = AddCategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"La catégorie \"{category.name}\" a été modifiée avec succès.")
+            return redirect('catalog:category_detail', id=id)
+        else:
+            return render(request, "catalog/category/edit.html", context={"form": form, "category": category})
+
+    form = AddCategoryForm(instance=category)
+    return render(request, "catalog/category/edit.html", context={"form": form, "category": category})

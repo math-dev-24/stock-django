@@ -1,0 +1,16 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}
+    Modifier : {{ product.name }}
+{% endblock %}
+
+{% block content %}
+<div class="section">
+    <h1>Modifier : {{ product.name }}</h1>
+    <form method="post" class="content" action="{% url 'catalog:product_edit' product.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Modifier</button>
+    </form>
+</div>
+{% endblock %}

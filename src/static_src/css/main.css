@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 .section {
-    @apply container mx-auto py-4 flex flex-col min-h-[80vh];
+    @apply container mx-auto py-4 flex flex-col min-h-[60vh];
     h1 {
-        @apply text-2xl font-bold text-gray-800 mb-6 ml-6;
+        @apply text-2xl font-bold text-gray-800 mb-2 ml-1;
     }
     .content {
-        @apply bg-white shadow-md rounded-lg p-8 flex-1 flex flex-col w-full;
+        @apply bg-white shadow-md rounded-lg p-8 flex-1 flex flex-col w-full gap-2 md:gap-4;
     }
 }
 
@@ -91,7 +91,7 @@ nav {
 }
 
 .badge {
-    @apply inline-block px-3 py-1 text-xs font-semibold text-white uppercase rounded-full;
+    @apply inline-block px-2 py-1 text-xs text-white uppercase rounded-full;
 }
 
 .badge-primary {

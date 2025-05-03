@@ -63,5 +63,8 @@ Affichage des données de façon lisible et agréable pour l'utilisateur avec la
 ### Vue dashboard
 ![Dashboard](./demo/dashboard.png)
 
+## Vue catalogue produits
+![catalogue-product](./demo/list-product.png)
+
 ## Vue détaillée produit
 ![detail-product](./demo/detail-product.png)`

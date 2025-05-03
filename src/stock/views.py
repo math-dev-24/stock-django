@@ -15,6 +15,15 @@ def dashboard_view(request):
     products = Product.objects.all()
     categories = Category.objects.all()
 
+    categories_json = []
+
+    for category in categories:
+        categories_json.append({
+            'id': category.id,
+            'name': category.name,
+            'quantity': products.filter(category=category).count()
+        })
+
     context = {
         "products": {
             "list": products,
@@ -27,6 +36,7 @@ def dashboard_view(request):
         "companies": {
             "list": user_companies,
             "count": user_companies.count()
-        }
+        },
+        "categories_json": categories_json
     }
     return render(request, "stock/dashboard.html", context)

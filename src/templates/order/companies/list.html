@@ -9,7 +9,7 @@
         <div class="content">
             {% if company %}
                 <div class="grid grid-cols-3 gap-0.5">
-                    <a href="{% url 'order:company_add' %}" class="btn btn-primary col-span-1">Ajouter une société</a>
+                    <a href="{% url 'order:company_add' %}" class="btn btn-indigo-outline col-span-1">Ajouter une société</a>
                     <div class="col-span-2"></div>
                     {% for comp in company %}
                         <div class="col-span-3 border-b border-slate-300 py-4 px-6 hover:bg-slate-50">
