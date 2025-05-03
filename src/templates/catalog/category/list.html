@@ -1,0 +1,65 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}
+    {{ block.super }} - Categories
+{% endblock %}
+
+{% block content %}
+    <div class="section">
+            <h1>
+                <span class="text-blue-800">{{ count }}</span> | Liste des Catégories
+            </h1>
+       <div class="content">
+            <div class="mt-2 mb-6 grid grid-cols-3">
+                <a href="{% url 'catalog:category_add' %}" class="btn btn-indigo-outline">
+                    Ajouter une catégorie
+                </a>
+            </div>
+           {%  if categories %}
+               <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                   {% for category in categories %}
+                        <div class="bg-slate-50 rounded-lg transition-shadow duration-300 relative border border-gray-200 hover:outline hover:outline-blue-500">
+                            <div class="p-4 space-y-2">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                                    {{ category.name }}
+                                </h2>
+                                <p class="text-gray-600 mb-4">{{ category.description }}</p>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="grid grid-cols-2 gap-2 mx-2 my-1">
+                                <form method="POST" action="{% url 'catalog:category_delete' category.id %}" class="btn btn-danger-2 m-0">
+                                    {% csrf_token %}
+                                    <button type="submit" class="w-full flex items-center justify-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 17h2V8H9zm4 0h2V8h-2zm-8 4V6H4V4h5V3h6v1h5v2h-1v15z"/></svg>
+                                        Supprimer
+                                    </button>
+                                </form>
+                                <a href="{% url 'catalog:category_detail' category.id %}" class="btn btn-indigo-outline m-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
+                                    Details
+                                </a>
+                            </div>
+
+
+                        </div>
+                   {%  endfor %}
+               </div>
+           {% else %}
+                   <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-md">
+                       <div class="flex">
+                           <div class="flex-shrink-0">
+                               <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                   <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                               </svg>
+                           </div>
+                           <div class="ml-3">
+                               <p class="text-sm text-yellow-700">
+                                   Aucune catégorie trouvée. Veuillez en <a class="link underline" href="{% url 'catalog:category_add' %}">ajouter</a>.
+                               </p>
+                           </div>
+                       </div>
+                   </div>
+           {% endif %}
+       </div>
+    </div>
+{% endblock %}

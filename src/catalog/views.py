@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from catalog.forms import AddProductForm, AddCategoryForm
-from catalog.models import Product
+from catalog.models import Product, Category
 from math import floor
 
 
@@ -83,3 +83,46 @@ def add_category_view(request):
 
     form = AddCategoryForm()
     return render(request, "catalog/category/add.html", context={"form": form})
+
+
+def category_list_view(request):
+    categories = Category.objects.all()
+    context = {
+        "categories": categories,
+        "count": len(categories)
+    }
+    return render(request, "catalog/category/list.html", context)
+
+
+def category_view(request, id):
+    category = Category.objects.get(pk=id)
+    context = {
+        "category": category
+    }
+    return render(request, "catalog/category/detail.html", context)
+
+
+@login_required
+def delete_category(request, id):
+    category = Category.objects.get(pk=id)
+    category.delete()
+    messages.success(request, f"La catégorie \"{category.name}\" a été supprimée avec succès.")
+    return redirect('catalog:category_list')
+
+
+@login_required
+def add_price_to_product(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    price = request.POST.get('price')
+
+    print(price)
+
+    if price is None:
+        messages.error(request, "Veuillez remplir le nouveau prix.")
+        return render(request, "catalog/product/detail.html", {
+            "product": product
+        })
+    else:
+        product.prices.create(price=price)
+        messages.success(request, f"Le prix {price}€ a été ajouté avec succès.")
+        return redirect('catalog:product_detail', product_id)

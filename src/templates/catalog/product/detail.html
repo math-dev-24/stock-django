@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "baseDashboard.html" %}
 {% load static %}
 
 {% block title %} {{ product.name }} {% endblock %}
@@ -24,9 +24,9 @@
 
             <div class="w-[98%] mx-auto rounded border border-gray-200 p-4 mt-4 space-y-4">
                 <h1 class="text-xl font-semibold">Evolution du prix :</h1>
-                <form method="post" action="{% url 'stock:product' product.id %}" class="my-4 border rounded border-gray-300 p-2 text-sm text-gray-600 grid grid-cols-5 gap-1">
+                <form method="post" action="{% url 'catalog:price_add' product.id %}" class="my-4 border rounded border-gray-300 p-2 text-sm text-gray-600 grid grid-cols-5 gap-1">
                     {% csrf_token %}
-                        <label for="price" class="block text-end flex items-center justify-end col-span-1">
+                        <label for="price" class="text-end flex items-center justify-end col-span-1">
                             Nouveau prix <span class="text-red-500"> * </span> :
                         </label>
                         <input required type="number" step="0.01" id="price" name="price" placeholder="{{product.prices.first.price}}" value="{{product.prices.first.price}}" class="col-span-3 w-full border border-gray-300 rounded-lg p-1 focus:border-indigo-500 focus:ring-indigo-500">
@@ -37,7 +37,7 @@
 
                 <!-- Ajout du sélecteur de période -->
                 <div class="flex items-center gap-2 mt-4 mb-2">
-                    <span class="text-sm font-medium">Période :</span>
+                    <label for="periodSelector" class="text-sm font-medium">Période :</label>
                     <select id="periodSelector" class="text-sm border border-gray-300 rounded px-2 py-1 focus:border-blue-500 focus:ring-blue-500">
                         <option value="all">Tout l'historique</option>
                         <option value="year">Dernière année</option>
@@ -51,7 +51,7 @@
                 <div class="grid grid-cols-5 gap-2">
                     <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
                         <p class="text-xs text-blue-700">Prix actuel</p>
-                        <p class="text-lg font-bold" id="currentPrice">{{ product.prices.first.price }} €</p>
+                        <p class="text-lg font-bold" id="currentPrice">{{ product.prices.last.price }} €</p>
                     </div>
                     <div class="bg-green-50 p-3 rounded-lg border border-green-100">
                         <p class="text-xs text-green-700">Prix minimum</p>
@@ -75,7 +75,7 @@
             <!-- Zone de danger -->
             <div class="w-[98%] mx-auto rounded border border-red-300 drop-shadow p-4 mt-4 bg-red-100 space-y-4">
                 <h2 class="text-xl font-bold">Zone de danger !</h2>
-                <form method="post" action="{% url 'stock:productDelete' product.id %}" class="mt-2 text-sm text-gray-600 grid grid-cols-3 gap-1">
+                <form method="post" action="{% url 'catalog:product_delete' product.id %}" class="mt-2 text-sm text-gray-600 grid grid-cols-3 gap-1">
                     {% csrf_token %}
                     <button type="submit" class="flex items-center justify-center gap-2 w-full bg-red-600 hover:bg-red-700 text-white font-medium p-1 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-colors">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 17h2V8H9zm4 0h2V8h-2zm-8 4V6H4V4h5V3h6v1h5v2h-1v15z"/></svg>
@@ -85,6 +85,7 @@
             </div>
         </div>
     </section>
+
 
     <div id="priceData" class="hidden"
          data-prices="[

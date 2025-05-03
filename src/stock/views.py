@@ -6,6 +6,7 @@ from catalog.models import Product, Category
 def home_view(request):
     return render(request, 'stock/index.html')
 
+
 @login_required
 def dashboard_view(request):
 
