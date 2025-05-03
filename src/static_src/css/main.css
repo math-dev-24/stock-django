@@ -3,18 +3,18 @@
 @tailwind utilities;
 
 .section {
-    @apply container mx-auto;
+    @apply container mx-auto py-4 flex flex-col min-h-[80vh];
     h1 {
-        @apply text-2xl font-bold text-gray-800 mb-6;
+        @apply text-2xl font-bold text-gray-800 mb-6 ml-6;
     }
     .content {
-        @apply bg-white shadow-md rounded-lg p-8;
+        @apply bg-white shadow-md rounded-lg p-8 flex-1 flex flex-col w-full;
     }
 }
 
 .btn {
     @apply border rounded-md py-2 px-4 duration-150 transition-all cursor-pointer;
-    @apply flex items-center justify-center gap-2 w-full;
+    @apply flex items-center justify-center gap-2;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
     span {
         @apply text-sm block;
@@ -114,4 +114,61 @@ nav {
 
 .badge-emerald {
     @apply bg-emerald-600 text-white;
+}
+
+.link-dash {
+    @apply hover:bg-blue-500 hover:text-white transition-all duration-200 p-2;
+}
+
+.current_link {
+    @apply bg-blue-500 text-white p-2;
+}
+
+.separator {
+    @apply h-0.5 w-[85%] bg-gray-300 my-2 mx-auto;
+}
+
+.alert {
+    @apply p-4 rounded drop-shadow;
+}
+.alert-success {
+    @apply bg-green-100 text-green-700;
+}
+
+.alert-danger {
+    @apply bg-red-100 text-red-700;
+}
+
+.progress-bar-3 {
+    @apply h-0.5 w-full transition-all duration-200;
+    animation: progress-bar-3 6s linear;
+}
+
+.progress-bar-primary {
+    @apply bg-blue-600;
+}
+
+.progress-bar-secondary {
+    @apply bg-gray-600;
+}
+
+.progress-bar-danger {
+    @apply bg-red-600;
+}
+
+.progress-bar-success {
+    @apply bg-green-600;
+}
+
+.progress-bar-orange {
+    @apply bg-orange-600;
+}
+
+@keyframes progress-bar-3 {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
 }

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "baseDashboard.html" %}
 
 {% block title %}
     {{ block.super }} - Products
@@ -10,8 +10,13 @@
                 <span class="text-blue-800">{{ count }}</span> | Liste des Produits
             </h1>
    <div class="content">
+    <div class="mt-2 mb-6 grid grid-cols-3">
+        <a href="{% url 'catalog:product_add' %}" class="btn btn-indigo-outline">
+            Ajouter un produit
+        </a>
+    </div>
         {% if products %}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
+        <div class="grid grid-cols-3 gap-6">
             {% for product in products %}
                 <div class="bg-slate-50 rounded-lg overflow-hidden transition-shadow duration-300 relative border border-gray-200 hover:outline hover:outline-blue-500">
                     <div class="p-4 space-y-2">
@@ -27,27 +32,23 @@
                                 <p class="text-xs text-blue-500">{{ product.category.all|join:", " }}</p>
                             </div>
                         {% endif %}
-
-                        {% if user_name %}
-                            <div class="mt-auto pt-3 flex gap-2 border-t border-gray-200 pt-3 justify-between">
-                                <a href="{% url 'stock:addProduct' %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                                    </svg>
-                                    Modifier
-                                </a>
-                                <form method="POST" action="{% url 'stock:productDelete' product.id %}" style="display: inline;">
+                        <div class="separator"></div>
+                            <div class="grid grid-cols-3 gap-2 mx-2 my-1">
+                                <form method="POST" action="{% url 'catalog:product_delete' product.id %}" class="btn btn-danger-2 m-0">
                                     {% csrf_token %}
                                     <button type="submit" class="text-red-600 hover:text-red-800 font-medium flex items-center bg-transparent border-0 p-0 cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 17h2V8H9zm4 0h2V8h-2zm-8 4V6H4V4h5V3h6v1h5v2h-1v15z"/></svg>
-                                        Supprimer
                                     </button>
                                 </form>
-                                <a href="{% url 'stock:product' product.id %}" class="text-blue-600 hover:text-blue-800 font-medium flex items-center absolute top-2 right-2">
+                                <a href="{% url 'catalog:product_detail' product.id %}" class="btn btn-primary m-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
                                 </a>
+                                <a href="{% url 'catalog:product_add' %}" class="btn btn-indigo m-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                    </svg>
+                                </a>
                             </div>
-                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

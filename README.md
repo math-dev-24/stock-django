@@ -27,7 +27,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # créer la base de données
-python manage.py makemigrations stock
+python manage.py makemigrations
 python manage.py migrate
 
 # Chargement des fixtures
@@ -64,4 +64,4 @@ Affichage des données de façon lisible et agréable pour l'utilisateur avec la
 ![Dashboard](./demo/dashboard.png)
 
 ## Vue détaillée produit
-![detail-product](./demo/detail-product.png)
+![detail-product](./demo/detail-product.png)`
