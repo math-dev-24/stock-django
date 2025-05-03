@@ -1,0 +1,44 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block title %}Gestion de Stock - Liste des sociétés{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>Liste des sociétés</h1>
+        <div class="content">
+            {% if company %}
+                <div class="grid grid-cols-3 gap-0.5">
+                    <a href="{% url 'order:company_add' %}" class="btn btn-primary col-span-1">Ajouter une société</a>
+                    <div class="col-span-2"></div>
+                    {% for comp in company %}
+                        <div class="col-span-3 border-b border-slate-300 py-4 px-6 hover:bg-slate-50">
+                            <div class="flex items-center gap-2">
+                                <div class="flex-1">
+                                    <span class="font-semibold">{{ comp.name }}</span>
+                                    <span class="text-sm text-slate-500">{{ comp.email }}</span>
+                                </div>
+                                <div class="flex-1 flex items-center gap-2">
+                                    <a class="btn-tinny btn-indigo-outline" href="{% url 'order:company_detail' comp.id %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M3 21V3h9v2H5v14h14v-7h2v9zm6.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4z"/></svg>
+                                    </a>
+                                    <a class="btn-tinny btn-indigo-outline" href="{% url 'order:company_detail' comp.id %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M3 21V3h9v2H5v14h14v-7h2v9zm6.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4z"/></svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="grid grid-cols-3 gap-4">
+                    <a href="{% url 'order:company_add' %}" class="btn btn-primary col-span-1">Ajouter une société</a>
+                    <div class="col-span-2"></div>
+                    <div class="callout error col-span-3">
+                        <span>Vous n'avez pas encore ajouté de société.</span>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

@@ -9,11 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="{% static 'js/popup.js' %}" defer></script>
+    <script src="{% static 'js/changeShop.js' %}" defer></script>
     {% block extra_css %}{% endblock %}
     {% block extra_head %}{% endblock %}
     <title>{% block title %}Gestion de Stock{% endblock %}</title>
 </head>
-<body>
+<body class="relative">
     <main class="flex m-0 p-0 w-full">
     <!--Navigation-->
         <div
@@ -25,6 +26,18 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M12.003 21q-1.866 0-3.51-.708q-1.643-.709-2.859-1.924t-1.925-2.856T3 12.003t.709-3.51Q4.417 6.85 5.63 5.634t2.857-1.925T11.997 3t3.51.709q1.643.708 2.859 1.922t1.925 2.857t.709 3.509t-.708 3.51t-1.924 2.859t-2.856 1.925t-3.509.709"/></svg>
                     Connecté
                 </span>
+            </div>
+            <div class="text-center text-slate-700 text-sm my-1">{{ nombre_company }} société{{ nombre_company|pluralize }}</div>
+
+            <div class="text-center text-slate-700 text-sm flex items-center justify-center gap-2 px-2" id="company-name">
+                {% if request.current_company %}
+                    <span>{{ request.current_company.name }}</span>
+                {% else %}
+                    <span>Aucun</span>
+                {% endif %}
+                <div class="btn-tinny btn-indigo-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M4 20v-2h2.75l-.4-.35q-1.225-1.225-1.787-2.662T4 12.05q0-2.775 1.663-4.937T10 4.25v2.1Q8.2 7 7.1 8.563T6 12.05q0 1.125.425 2.188T7.75 16.2l.25.25V14h2v6zm10-.25v-2.1q1.8-.65 2.9-2.212T18 11.95q0-1.125-.425-2.187T16.25 7.8L16 7.55V10h-2V4h6v2h-2.75l.4.35q1.225 1.225 1.788 2.663T20 11.95q0 2.775-1.662 4.938T14 19.75"/></svg>
+                </div>
             </div>
             <div class="separator"></div>
             <nav class="flex flex-col gap-0 flex-1 m-0 p-0">
@@ -42,13 +55,17 @@
                 </a>
                 <span class="separator"></span>
                 <span class="ml-4 font-semibold text-sm">Stock</span>
-                <a href="#" class="link-dash">A venir</a>
+                <a href="{% url 'order:company_list' %}" class="{% active_link 'order:company_list' 'current_link' 'link-dash' strict=True %}">
+                    <span>Mes sociétés</span>
+                    <span class="badge badge-indigo">{{ nombre_company }}</span>
+                </a>
                 <span class="separator"></span>
                 <a href="{% url 'user:logout' %}" class="{% active_link 'user:logout' 'current_link' 'link-dash'%}">Déconnexion</a>
             </nav>
         </div>
+
     <!--Content-->
-        <div class="flex-1 py-4 px-6 bg-gray-100">
+        <div class="flex-1 py-4 px-6 bg-gray-100 z-0">
             {% block content %}
             {% endblock %}
         </div>
@@ -61,6 +78,27 @@
             </div>
         {% endfor %}
     </div>
+
+    <!--Change company-->
+    {%  if nombre_company > 0 %}
+        <div id="change-company-bg" class="w-[100vw] h-[100vh] bg-slate-300 fixed top-0 left-0 z-40 opacity-50 hidden"></div>
+        <div id="change-company" class="fixed top-1/4 left-1/4 w-2/4 border py-16 px-8 rounded-md bg-white shadow-lg z-50 hidden">
+            <form method="post" action="{% url 'order:change_company' %}" class="grid grid-cols-3 gap-0.5">
+                {% csrf_token %}
+                <div class="col-span-3 text-lg font-semibold">Actuel : {% if request.current_company.name %} {{ request.current_company.name }} {% else %} Aucun {% endif %}</div>
+                <label for="company_id" class="col-span-3 text-sm text-slate-500">Changer de magasin : </label>
+                <select name="company_id" id="company_id" class="col-span-2 border-2 border-slate-300 py-2 px-4 w-full rounded focus:border-indigo-500">
+                    {% for company in request.list_company %}
+                        <option value="{{ company.id }}" {% if company.id == request.current_company.id %}selected{% endif %}>{{ company.name }}</option>
+                    {% endfor %}
+                </select>
+                <input type="hidden" name="next" value="{{ request.path }}">
+                <button type="submit" class="btn btn-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M4 20v-2h2.75l-.4-.35q-1.225-1.225-1.787-2.662T4 12.05q0-2.775 1.663-4.937T10 4.25v2.1Q8.2 7 7.1 8.563T6 12.05q0 1.125.425 2.188T7.75 16.2l.25.25V14h2v6zm10-.25v-2.1q1.8-.65 2.9-2.212T18 11.95q0-1.125-.425-2.187T16.25 7.8L16 7.55V10h-2V4h6v2h-2.75l.4.35q1.225 1.225 1.788 2.663T20 11.95q0 2.775-1.662 4.938T14 19.75"/></svg>
+                </button>
+            </form>
+        </div>
+    {% endif %}
 
     {% block scripts %}
     {% endblock %}

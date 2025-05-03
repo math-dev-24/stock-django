@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from catalog.models import Product, Category
 
@@ -10,7 +11,7 @@ def home_view(request):
 @login_required
 def dashboard_view(request):
 
-    user_companies = request.user.companies.all()
+    user_companies = request.user.company_members.all()
     products = Product.objects.all()
     categories = Category.objects.all()
 
@@ -29,4 +30,3 @@ def dashboard_view(request):
         }
     }
     return render(request, "stock/dashboard.html", context)
-
