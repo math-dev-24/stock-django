@@ -13,15 +13,18 @@
             </div>
             <div>
             {%  if states %}
-                <div>
+                <div class="grid grid-cols-2 gap-4">
                     {% for state in states %}
-                        <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300">
+                        <div class="border relative rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300 state-{{ state.group_state|lower }}">
                             <h2 class="text-xl font-semibold">
                                 {{ state.name }}
                             </h2>
                             <p class="font-bold">
                                 Groupe : {{ state.group_state }}
                             </p>
+                            <a href="{% url 'order:state_edit' state.id %}" class="btn btn-indigo-outline absolute right-1 top-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 15v-4.25l9.175-9.175q.3-.3.675-.45t.75-.15q.4 0 .763.15t.662.45L22.425 3q.275.3.425.663T23 4.4t-.137.738t-.438.662L13.25 15zm10.6-9.2l1.425-1.4l-1.4-1.4L18.2 4.4zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h8.925L7 9.925V17h7.05L21 10.05V19q0 .825-.587 1.413T19 21z"/></svg>
+                            </a>
                         </div>
                     {% endfor %}
                 </div>

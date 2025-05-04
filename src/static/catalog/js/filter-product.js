@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     nextLink.addEventListener('click', () => {
-        if (max < parseInt(filterForm.elements.page.value)) {
+        if (max > parseInt(filterForm.elements.page.value)) {
             const page = filterForm.elements.page.value;
             filterForm.elements.page.value = parseInt(page) + 1;
             filterForm.submit();

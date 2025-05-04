@@ -1,6 +1,29 @@
 document.addEventListener('DOMContentLoaded', function() {
     const productsList = JSON.parse(document.getElementById('products-list').textContent);
 
+    const from_company = document.getElementById('from_company');
+    const to_company = document.getElementById('to_company');
+    const message = document.getElementById('message');
+
+    from_company.addEventListener('change', function() {
+        check(this.value, to_company.value);
+    })
+    to_company.addEventListener('change', function() {
+        check(from_company.value, this.value);
+    })
+
+    const check = (from, to) => {
+        if (from === to) {
+            message.innerHTML = 'Vous ne pouvez pas envoyer des commandes entre deux mêmes magasins.';
+        } else if (to === '' && from !== '') {
+            message.innerHTML = 'Statut : sortie (client)';
+        } else if (to !== '' && from === '') {
+            message.innerHTML = 'Statut : arrivage (fournisseur)';
+        } else {
+            message.innerHTML = '';
+        }
+    }
+
     let lineCounter = 1;
 
     // Fonction pour ajouter une nouvelle ligne de produit

@@ -181,3 +181,20 @@ nav {
         width: 100%;
     }
 }
+
+input, select, textarea {
+    @apply px-2 py-1 w-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent rounded;
+}
+
+.state-open {
+    @apply bg-slate-50 text-slate-700;
+}
+.state-pending {
+    @apply bg-yellow-50 text-yellow-700;
+}
+.state-blocked {
+    @apply bg-red-50 text-red-700;
+}
+.state-finished {
+    @apply bg-green-50 text-green-700;
+}

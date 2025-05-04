@@ -1,0 +1,18 @@
+{% extends 'baseDashboard.html' %}
+
+{% block title %}Modification du statut  : {{ state.name }}{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>Modification du statut  : {{ state.name }}</h1>
+        <div class="content">
+            <form method="post" class="flex flex-col gap-4 max-w-md mx-auto">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    Modifier
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

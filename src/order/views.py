@@ -2,9 +2,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Company
-from catalog.models import Product
+from catalog.models import Product, Price
 from .models import StateOrder
 from .forms import AddCompanyFrom, AddStateOrderForm
+from django.db.models import OuterRef, Subquery, F
 
 
 @login_required
@@ -76,7 +77,17 @@ def change_company(request):
 def add_order_view(request):
     products = Product.objects.all()
     states = StateOrder.objects.all()
-    products_json_list = list(Product.objects.all().values('id', 'name'))
+
+    latest_prices = Price.objects.filter(
+        product=OuterRef('pk')
+    ).order_by('-created_at').values('price')[:1]
+
+    products = Product.objects.all().annotate(
+        latest_price=Subquery(latest_prices)
+    )
+
+    states = StateOrder.objects.all()
+    products_json_list = list(products.values('id', 'name', latest_price=F('latest_price')))
 
     context = {
         "products": products,
@@ -125,7 +136,7 @@ def add_state_view(request):
             state = form.save()
             state.save()
             messages.success(request, "L'état a été ajouté avec succès.")
-            return redirect('stock:dashboard')
+            return redirect('stock:state_list')
         else:
             messages.error(request, "Une erreur est survenue.")
             return render(request, "order/state/add.html", context={"form": form})
@@ -145,6 +156,23 @@ def state_list_view(request):
 
 
 @login_required
+def state_edit_view(request, id):
+    state = StateOrder.objects.get(pk=id)
+    if request.method == 'POST':
+        form = AddStateOrderForm(request.POST, instance=state)
+        if form.is_valid():
+            state = form.save()
+            messages.success(request, "L'état a été modifié avec succès.")
+            return redirect('order:state_list')
+        else:
+            messages.error(request, "Une erreur est survenue.")
+            return render(request, "order/state/edit.html", context={"form": form, "state": state})
+
+    form = AddStateOrderForm(instance=state)
+    return render(request, "order/state/edit.html", context={"form": form, "state": state})
+
+
+@login_required
 def company_edit_view(request, id):
     company = Company.objects.get(pk=id)
     if request.method == 'POST':
@@ -152,10 +180,12 @@ def company_edit_view(request, id):
         if form.is_valid():
             company = form.save()
             messages.success(request, "La société a été modifiée avec succès.")
-            return redirect('stock:company_detail', company.id)
+            return redirect('order:company_detail', company.id)
         else:
             messages.error(request, "Une erreur est survenue.")
             return render(request, "order/companies/edit.html", context={"form": form, "company": company})
 
     form = AddCompanyFrom(instance=company)
     return render(request, "order/companies/edit.html", context={"form": form, "company": company})
+
+

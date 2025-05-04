@@ -11,8 +11,11 @@ urlpatterns = [
     path("company/<uuid:id>/edit", views.company_edit_view, name="company_edit"),
     path("company/change", views.change_company, name="change_company"),
     path("add", views.add_order_view, name="add_order"),
+
+
     # States
     path("state", views.state_list_view, name="state_list"),
     path("state/add", views.add_state_view, name="add_state"),
+    path("state/<int:id>/edit", views.state_edit_view, name="state_edit"),
 
 ]
