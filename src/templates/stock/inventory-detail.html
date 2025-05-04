@@ -1,0 +1,85 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block title %} {{ inventory.product.name }} {% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>{{ inventory.product.name }}</h1>
+        <div class="content">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="border rounded border-blue-400 py-2 px-4">
+                    <h2 class="text-lg text-gray-600">En stock</h2>
+                    <span class="font-bold text-2xl">{{ inventory.in_stock }}</span>
+                </div>
+                <div class="border rounded border-orange-400 py-2 px-4">
+                    <h2 class="text-lg text-gray-600">En transit</h2>
+                    <span class="font-bold text-2xl">{{ inventory.in_transit }}</span>
+                </div>
+            </div>
+            <div class="flex flex-col gap-4">
+                <!-- Commandes entrantes -->
+                <div>
+                    {% if command_in.count > 0 %}
+                        <h2 class="text-lg font-semibold mb-2"><span class="text-blue-800">{{ command_in.count }}</span> | Commandes entrantes</h2>
+                        {% for command in command_in %}
+                            <div id="card-command" class="border rounded bg-white p-4 drop-shadow cursor-pointer">
+                                <div class="flex justify-between">
+                                    <h3 class="text-lg font-semibold">
+                                        {{ command.reference }}
+                                    </h3>
+                                    <span class="badge state-{{ command.state.group_state|lower }}">{{ command.state.name }}</span>
+                                </div>
+                                <div>
+                                    {{ command.lines.count }} ligne{{ command.lines.count|pluralize }}
+                                </div>
+                                <div class="hidden detail-card text-sm">
+                                    {% for line in command.lines.all %}
+                                        <span
+                                            class="{% if line.product == inventory.product %}text-blue-600{% else %}text-gray-500{% endif %}"
+                                        >
+                                            {{ line.product.name }} : {{ line.quantity }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <!-- Commandes sortantes -->
+                <div>
+                    {% if command_out.count > 0 %}
+                        <h2 class="text-lg font-semibold mb-2"><span class="text-blue-800">{{ command_out.count }}</span> | Commandes sortantes</h2>
+                        {% for command in command_out %}
+                            <div id="card-command" class="border rounded bg-white p-4 drop-shadow cursor-pointer">
+                                <div class="flex justify-between">
+                                    <h3 class="text-lg font-semibold">
+                                        {{ command.reference }}
+                                    </h3>
+                                    <span class="badge state-{{ command.state.group_state|lower }}">{{ command.state.name }}</span>
+                                </div>
+                                <div>
+                                    {{ command.lines.count }} ligne{{ command.lines.count|pluralize }}
+                                </div>
+                                <div class="hidden detail-card text-sm">
+                                    {% for line in command.lines.all %}
+                                        <span
+                                            class="{% if line.product == inventory.product %}text-blue-600{% else %}text-gray-500{% endif %}"
+                                        >
+                                            {{ line.product.name }} : {{ line.quantity }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'stock/js/detail-command.js' %}"></script>
+{% endblock %}

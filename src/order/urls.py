@@ -17,6 +17,7 @@ urlpatterns = [
     path("state", views.state_list_view, name="state_list"),
     path("state/add", views.add_state_view, name="add_state"),
     path("state/<int:state_id>/edit", views.state_edit_view, name="state_edit"),
+    path("state/<int:state_id>/delete", views.state_delete_view, name="state_delete"),
 
     #orders
     path("<uuid:order_id>/detail", views.order_detail_view, name="order_detail"),

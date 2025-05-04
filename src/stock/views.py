@@ -78,3 +78,27 @@ def inventory_view(request):
         "count": inventories.count()
     }
     return render(request, "stock/inventory.html", context)
+
+
+@login_required
+def inventory_detail_view(request, inventory_id):
+    current_company = request.current_company
+    inventory = Inventory.objects.get(pk=inventory_id)
+
+    command_in = Order.objects.filter(
+        to_company=current_company,
+        lines__product=inventory.product
+    ).distinct()
+
+    command_out = Order.objects.filter(
+        from_company=current_company,
+        lines__product=inventory.product
+    ).distinct()
+
+    context = {
+        "inventory": inventory,
+        "command_in": command_in,
+        "command_out": command_out
+    }
+
+    return render(request, "stock/inventory-detail.html", context)

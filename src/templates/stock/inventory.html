@@ -11,7 +11,11 @@
                         {% for inventory in inventories.list %}
                             <div class="card card-compact">
                                 <div class="card-body">
-                                    <h3 class="card-title">{{ inventory.product.name }}</h3>
+                                    <h3 class="card-title">
+                                        <a href="{% url 'stock:inventory_detail' inventory.id %}">
+                                            {{ inventory.product.name }}
+                                        </a>
+                                    </h3>
                                     <span class="absolute top-1 right-1 badge state-{{ inventory.product.category.group_state|lower }}">{{ inventory.product.category.name }}</span>
                                     <p class="flex items-center justify-around text-sm border rounded px-2 py-1 my-1">
                                         <span class="text-blue-600">

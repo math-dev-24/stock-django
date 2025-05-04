@@ -159,7 +159,7 @@ def add_state_view(request):
 
 @login_required
 def state_list_view(request):
-    states = StateOrder.objects.all()
+    states = StateOrder.objects.all().order_by('group_state')
     context = {
         "states": states,
         "count": states.count()
@@ -232,3 +232,17 @@ def order_edit_state_view(request, order_id):
     except Exception as e:
         messages.error(request, f"Une erreur est survenue : {e}")
         return redirect('order:order_detail', order_id)
+
+
+@login_required
+def state_delete_view(request, state_id):
+    state = StateOrder.objects.get(pk=state_id)
+    if request.method == 'POST':
+        orders_count = Order.objects.filter(state=state).count()
+        if orders_count == 0:
+            state.delete()
+            messages.success(request, f"L'état \"{state.name}\" a été supprimé avec succès.")
+            return redirect('order:state_list')
+        else:
+            messages.error(request, f"L'état \"{state.name}\" ne peut pas être supprimé car il y a des commandes associées.")
+            return redirect('order:state_list')
