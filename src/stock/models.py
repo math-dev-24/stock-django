@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import models, transaction
 from catalog.models import Product
+from django.db.models import F
 from order.models import Company, Order
 
 
@@ -12,8 +13,50 @@ class Inventory(models.Model):
     in_transit = models.IntegerField(verbose_name="In transit")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
 
+    class Meta:
+        unique_together = ('company', 'product')
+        indexes = [
+            models.Index(fields=['company', 'product']),
+        ]
+
     def __str__(self):
         return f"{self.company.name} - {self.product.name} - {self.in_stock}"
+
+    @classmethod
+    @transaction.atomic
+    def update_inventory(cls, company, product, quantity, from_or_to, state):
+        inventory = Inventory.objects.filter(company=company, product=product)
+
+        in_stock = 0
+        in_transit = 0
+
+        if from_or_to == "from":
+            in_stock = -quantity
+        elif from_or_to == "to" and state.group_state == "Finished":
+            in_stock = quantity
+            in_transit = -quantity
+        elif from_or_to == "to" and state.group_state != "Finished":
+            in_transit = quantity
+
+        if not inventory.exists():
+            cls.objects.create(
+                company=company,
+                product=product,
+                in_stock=in_stock,
+                in_transit=in_transit,
+            )
+        else:
+            inventory.update(
+                in_stock=F('in_stock') + in_stock,
+                in_transit=F('in_transit') + in_transit
+            )
+
+    @classmethod
+    def available_quantity(cls, company, product, needed_quantity) -> bool:
+        inventory = Inventory.objects.filter(company=company, product=product)
+        if not inventory.exists():
+            return False
+        return inventory.first().in_stock >= needed_quantity
 
 
 class Log(models.Model):

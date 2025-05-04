@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.db import models
+from django.db import models, transaction
 import uuid
 from catalog.models import Product
 
@@ -35,6 +35,20 @@ class StateOrder(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
 
+    def __str__(self):
+        return self.name + " - " + self.group_state
+
+
+class LineOrder(models.Model):
+    id = models.AutoField(primary_key=True)
+    product = models.ForeignKey(Product, related_name="orders", on_delete=models.CASCADE)
+    order = models.ForeignKey("Order", related_name="lines", on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    comment = models.TextField(verbose_name="Commentaire")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
+
 
 class Order(models.Model):
     class VAT(models.TextChoices):
@@ -55,15 +69,61 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
 
+    @classmethod
+    @transaction.atomic
+    def create_order_with_line(cls, reference, from_company_id, to_company_id, vat, state, line_orders):
+        from stock.models import Inventory
 
-class LineOrder(models.Model):
-    id = models.AutoField(primary_key=True)
-    product = models.ForeignKey(Product, related_name="orders", on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, related_name="lines", on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=1)
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    comment = models.TextField(verbose_name="Commentaire")
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
+        # Création de l'ordre
+        tmp_order = Order.objects.create(
+            reference=reference,
+            vat=vat,
+            state=state
+        )
+        # Setter les companies
+        if from_company_id:
+            tmp_order.from_company = Company.objects.get(pk=from_company_id)
+        if to_company_id:
+            tmp_order.to_company = Company.objects.get(pk=to_company_id)
 
+        tmp_order.save(update_fields=["from_company", "to_company", 'updated_at'])
 
+        # Création des lignes et ajustement de l'inventaire
+        for line_order in line_orders:
+            tmp_product = line_order['product']
+            tmp_quantity = line_order['quantity']
+
+            LineOrder.objects.create(
+                order=tmp_order,
+                product=tmp_product,
+                quantity=tmp_quantity
+            )
+
+            if tmp_order.from_company:
+                Inventory.update_inventory(tmp_order.from_company, tmp_product, tmp_quantity, "from", tmp_order.state)
+            if tmp_order.to_company:
+                Inventory.update_inventory(tmp_order.to_company, tmp_product, tmp_quantity, "to", tmp_order.state)
+
+        return tmp_order
+
+    @classmethod
+    @transaction.atomic
+    def update_order_state(cls, order_id, new_state):
+        from stock.models import Inventory
+
+        tmp_order = cls.objects.get(id=order_id)
+
+        if new_state.group_state == "Finished" and tmp_order.to_company:
+            for line_order in tmp_order.lines.all():
+                Inventory.update_inventory(
+                    tmp_order.to_company,
+                    line_order.product,
+                    line_order.quantity,
+                    "to",
+                    new_state
+                )
+
+        tmp_order.state = new_state
+        tmp_order.save(update_fields=['state', 'updated_at'])
+
+        return tmp_order

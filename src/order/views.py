@@ -103,10 +103,12 @@ def add_order_view(request):
         vat = request.POST.get('vat')
         state_id = request.POST.get('state')
 
+        state = StateOrder.objects.get(pk=state_id)
+
         product_ids = request.POST.getlist('products[]')
         quantities = request.POST.getlist('quantities[]')
 
-        is_valid = True
+        is_valid: bool = True
 
         line_orders = [{
             "product": Product.objects.get(pk=product_id),
@@ -124,67 +126,16 @@ def add_order_view(request):
             messages.error(request, "Veuillez sélectionner une TVA.")
             is_valid = False
 
-        # je vérifie si les produits sont disponibles
-        if from_company_id:
-            from_company = Company.objects.get(pk=from_company_id)
-            for line_order in line_orders:
-                inventory_tmp = from_company.inventory.get(product=line_order['product'])
-                if not inventory_tmp:
-                    messages.error(request, f"Le produit {line_order['product'].name} n'existe pas.")
-                    is_valid = False
-                # Cas produit en stock inférieur à la quantité demandée
-                if is_valid and inventory_tmp.in_stock < line_order['quantity']:
-                    messages.error(request, f"Le produit {line_order['product'].name} n'est pas en stock (disponible: {inventory_tmp.in_stock}).")
-                    is_valid = False
-
         if not is_valid:
             return render(request, "order/add.html", context)
 
-        state = StateOrder.objects.get(pk=state_id)
-
-        order = Order.objects.create(
-            reference=reference,
-            vat=vat,
-            state=state
-        )
-
-        if from_company_id:
-            order.from_company = Company.objects.get(pk=from_company_id)
-        if to_company_id:
-            order.to_company = Company.objects.get(pk=to_company_id)
-
-        order.save()
-
-        for line_order in line_orders:
-            tmp_product = Product.objects.get(pk=line_order['product_id'])
-            tmp_quantity = line_order['quantity']
-
-            LineOrder.objects.create(
-                order=order,
-                product=tmp_product,
-                quantity=tmp_quantity,
-            )
-            # update ou ajouter dans l'inventaire
-            inventory_tmp = order.to_company.inventory.filter(product=tmp_product)
-            in_stock = tmp_quantity
-            in_transit = 0
-
-            if state.group_state != "Terminated":
-                in_transit = tmp_quantity
-                in_stock = 0
-
-            if not inventory_tmp.exists():
-                Inventory.objects.create(
-                    company=order.to_company,
-                    product=tmp_product,
-                    in_stock=in_stock,
-                    in_transit=in_transit,
-                )
-            else:
-                inventory_tmp.update(in_stock=F('in_stock') + in_stock, in_transit=F('in_transit') + in_transit)
-
-        messages.success(request, "L'ordre a été créé avec succès.")
-        return redirect('order:order_detail', order.id)
+        try:
+            order = Order.create_order_with_line(reference, from_company_id, to_company_id, vat, state, line_orders)
+            messages.success(request, "L'ordre a été créé avec succès.")
+            return redirect('order:order_detail', order.id)
+        except Exception as e:
+            messages.error(request, f"Une erreur est survenue : {e}")
+            return render(request, "order/add.html", context)
 
     return render(request, "order/add.html", context)
 
@@ -197,7 +148,7 @@ def add_state_view(request):
             state = form.save()
             state.save()
             messages.success(request, "L'état a été ajouté avec succès.")
-            return redirect('stock:state_list')
+            return redirect('order:state_list')
         else:
             messages.error(request, "Une erreur est survenue.")
             return render(request, "order/state/add.html", context={"form": form})
@@ -267,22 +218,17 @@ def order_edit_state_view(request, order_id):
     if not request.method == 'POST':
         return redirect('order:order_detail', order_id)
 
-    order = Order.objects.get(pk=order_id)
-    state = request.POST.get('state')
+    state_id = request.POST.get('state')
+    new_state = StateOrder.objects.get(pk=state_id)
 
-    if not state:
+    if not new_state:
         messages.error(request, "Veuillez sélectionner un état.")
         return redirect('order:order_detail', order_id)
 
-    order.state = StateOrder.objects.get(pk=state)
-    order.save()
-
-    if order.state.group_state == "Finished":
-        for line_order in order.lines.all():
-            inventory_tmp = order.to_company.inventory.get(product=line_order.product)
-            inventory_tmp.in_stock += line_order.quantity
-            inventory_tmp.in_transit -= line_order.quantity
-            inventory_tmp.save()
-
-    messages.success(request, f"L'état a été modifié avec succès pour l'ordre {order.reference}.")
-    return redirect('order:order_detail', order_id)
+    try:
+        order = Order.update_order_state(order_id, new_state)
+        messages.success(request, f"L'état a été modifié avec succès ({order.reference}).")
+        return redirect('order:order_detail', order_id)
+    except Exception as e:
+        messages.error(request, f"Une erreur est survenue : {e}")
+        return redirect('order:order_detail', order_id)

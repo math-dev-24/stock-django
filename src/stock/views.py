@@ -48,8 +48,8 @@ def dashboard_view(request):
 def flux_view(request):
     current_company = request.current_company
 
-    command_in = Order.objects.filter(to_company_id=current_company.id)
-    command_out = Order.objects.filter(from_company_id=current_company.id)
+    command_in = Order.objects.filter(to_company=current_company)
+    command_out = Order.objects.filter(from_company=current_company)
 
     context = {
         "command_in": {
