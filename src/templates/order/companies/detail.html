@@ -4,15 +4,15 @@
 
 {% block content %}
     <section class="section">
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mb-2">
         <h1>{{company.name}}</h1>
         {%  if request.current_company.id != company.id %}
             <form method="post" action="{% url 'order:change_company' %}" class="flex items-center gap-2 m-0">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 <input type="hidden" name="company_id" value="{{ company.id }}">
                 <input type="hidden" name="next" value="{{ request.path }}">
-                <button type="submit" class="btn btn-indigo-outline">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m7 21l-5-5l5-5l1.425 1.4l-2.6 2.6H21v2H5.825l2.6 2.6zm10-8l-1.425-1.4l2.6-2.6H3V7h15.175l-2.6-2.6L17 3l5 5z"/></svg>
+                <button type="submit" class="btn btn-danger-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m7 21l-5-5l5-5l1.425 1.4l-2.6 2.6H21v2H5.825l2.6 2.6zm10-8l-1.425-1.4l2.6-2.6H3V7h15.175l-2.6-2.6L17 3l5 5z"/></svg>
                 </button>
             </form>
         {% endif %}
@@ -20,22 +20,26 @@
 
 
     <div class="content">
-        <div class="w-[98%] mx-auto rounded border border-gray-200 p-4 my-4 text-sm text-gray-600">
+            <div class="grid grid-cols-3 gap-2">
+                <a href="{% url 'order:company_edit' company.id %}" class="btn btn-indigo-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M3 21V3h9v2H5v14h14v-7h2v9zm6.7-5.3l-1.4-1.4L17.6 5H14V3h7v7h-2V6.4z"/></svg>
+                    Modifier
+                </a>
+            </div>
             <p>Nom : {{ company.name }}</p>
             <p>Email : {{ company.email }}</p>
             <p>Téléphone : {{ company.phone }}</p>
-            <p>{{company.members.count}} membre{{ company.members.count|pluralize }} :</p>
-            <ul class="list-disc ml-4">
-                {% for member in company.members.all %}
-                    <li>
-                        {{ member.username }}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div>
-            <h2 class="text-xl font-bold">Locations :</h2>
-            <p>A venir</p>
-        </div>
+            <p>{% if company.is_store %}Type : Boutique{% endif %}</p>
+            <p>{% if company.is_warehouse %}Type : Entrepôt{% endif %}</p>
+            <div>
+                <p>{{company.members.count}} membre{{ company.members.count|pluralize }} :</p>
+                <ul class="list-disc ml-4">
+                    {% for member in company.members.all %}
+                        <li>
+                            {{ member.username }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
     </div>
 {% endblock %}

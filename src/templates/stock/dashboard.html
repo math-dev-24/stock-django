@@ -63,20 +63,10 @@
         </div>
     </section>
 
-
-    <div id="categoryData" data-categories="[
-                   {% for category in categories_json %}
-                       {
-                           &quot;id&quot;: &quot;{{ category.id }}&quot;,
-                           &quot;name&quot;: &quot;{{ category.name }}&quot;,
-                           &quot;quantity&quot;: &quot;{{ category.quantity }}&quot;
-                       }{% if not forloop.last %},{% endif %}
-                   {% endfor %}
-               ]"
-    ></div>
 {% endblock %}
 
-    {% block scripts %}
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="{% static 'stock/js/chart-category.js' %}"></script>
-    {% endblock %}
+{% block scripts %}
+    {{ categories_json_list|json_script:"categories-list" }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'stock/js/chart-category.js' %}"></script>
+{% endblock %}

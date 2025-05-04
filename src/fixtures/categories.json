@@ -1,6 +1,6 @@
 [
   {
-    "model": "stock.category",
+    "model": "catalog.category",
     "pk": 1,
     "fields": {
       "name": "Électronique",
@@ -10,7 +10,7 @@
     }
   },
   {
-    "model": "stock.category",
+    "model": "catalog.category",
     "pk": 2,
     "fields": {
       "name": "Informatique",
@@ -20,7 +20,7 @@
     }
   },
   {
-    "model": "stock.category",
+    "model": "catalog.category",
     "pk": 3,
     "fields": {
       "name": "Vêtements",
@@ -30,13 +30,223 @@
     }
   },
   {
-    "model": "stock.category",
+    "model": "catalog.category",
     "pk": 4,
     "fields": {
       "name": "Maison",
       "description": "Produits pour la maison et le jardin",
       "created_at": "2025-05-01T09:45:00Z",
       "updated_at": "2025-05-01T09:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 5,
+    "fields": {
+      "name": "Sports & Loisirs",
+      "description": "Équipements sportifs et articles de loisirs",
+      "created_at": "2025-05-01T10:00:00Z",
+      "updated_at": "2025-05-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 6,
+    "fields": {
+      "name": "Alimentation",
+      "description": "Produits alimentaires, boissons et épicerie fine",
+      "created_at": "2025-05-01T10:15:00Z",
+      "updated_at": "2025-05-01T10:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 7,
+    "fields": {
+      "name": "Beauté & Santé",
+      "description": "Produits de beauté, cosmétiques et articles de santé",
+      "created_at": "2025-05-01T10:30:00Z",
+      "updated_at": "2025-05-01T10:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 8,
+    "fields": {
+      "name": "Jeux & Jouets",
+      "description": "Jeux de société, jouets pour enfants et jeux vidéo",
+      "created_at": "2025-05-01T10:45:00Z",
+      "updated_at": "2025-05-01T10:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 9,
+    "fields": {
+      "name": "Automobile",
+      "description": "Accessoires et pièces pour véhicules",
+      "created_at": "2025-05-01T11:00:00Z",
+      "updated_at": "2025-05-01T11:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 10,
+    "fields": {
+      "name": "Livres & Média",
+      "description": "Livres, musique, films et contenu numérique",
+      "created_at": "2025-05-01T11:15:00Z",
+      "updated_at": "2025-05-01T11:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 11,
+    "fields": {
+      "name": "Jardin & Bricolage",
+      "description": "Outils, matériaux et équipements pour le jardinage et le bricolage",
+      "created_at": "2025-05-01T11:30:00Z",
+      "updated_at": "2025-05-01T11:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 12,
+    "fields": {
+      "name": "Animalerie",
+      "description": "Produits pour animaux de compagnie",
+      "created_at": "2025-05-01T11:45:00Z",
+      "updated_at": "2025-05-01T11:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 13,
+    "fields": {
+      "name": "Art & Artisanat",
+      "description": "Fournitures artistiques et produits d'artisanat",
+      "created_at": "2025-05-01T12:00:00Z",
+      "updated_at": "2025-05-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 14,
+    "fields": {
+      "name": "Bijoux & Accessoires",
+      "description": "Bijoux, montres et accessoires de mode",
+      "created_at": "2025-05-01T12:15:00Z",
+      "updated_at": "2025-05-01T12:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 15,
+    "fields": {
+      "name": "Bébé & Enfant",
+      "description": "Articles pour bébés, enfants et puériculture",
+      "created_at": "2025-05-01T12:30:00Z",
+      "updated_at": "2025-05-01T12:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 16,
+    "fields": {
+      "name": "Instruments de Musique",
+      "description": "Instruments, accessoires et équipements musicaux",
+      "created_at": "2025-05-01T12:45:00Z",
+      "updated_at": "2025-05-01T12:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 17,
+    "fields": {
+      "name": "Bureau & Papeterie",
+      "description": "Fournitures de bureau et articles de papeterie",
+      "created_at": "2025-05-01T13:00:00Z",
+      "updated_at": "2025-05-01T13:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 18,
+    "fields": {
+      "name": "Bagages & Voyage",
+      "description": "Valises, sacs de voyage et accessoires de voyage",
+      "created_at": "2025-05-01T13:15:00Z",
+      "updated_at": "2025-05-01T13:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 19,
+    "fields": {
+      "name": "Services",
+      "description": "Prestations de services divers",
+      "created_at": "2025-05-01T13:30:00Z",
+      "updated_at": "2025-05-01T13:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 20,
+    "fields": {
+      "name": "High-Tech",
+      "description": "Produits technologiques innovants et à la pointe",
+      "created_at": "2025-05-01T13:45:00Z",
+      "updated_at": "2025-05-01T13:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 21,
+    "fields": {
+      "name": "Produits Écologiques",
+      "description": "Articles éco-responsables et durables",
+      "created_at": "2025-05-01T14:00:00Z",
+      "updated_at": "2025-05-01T14:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 22,
+    "fields": {
+      "name": "Décoration",
+      "description": "Articles décoratifs pour intérieur et extérieur",
+      "created_at": "2025-05-01T14:15:00Z",
+      "updated_at": "2025-05-01T14:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 23,
+    "fields": {
+      "name": "Photographie",
+      "description": "Appareils photo, accessoires et matériel de photographie",
+      "created_at": "2025-05-01T14:30:00Z",
+      "updated_at": "2025-05-01T14:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 24,
+    "fields": {
+      "name": "Électroménager",
+      "description": "Appareils électroménagers pour la cuisine et la maison",
+      "created_at": "2025-05-01T14:45:00Z",
+      "updated_at": "2025-05-01T14:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.category",
+    "pk": 25,
+    "fields": {
+      "name": "Chaussures",
+      "description": "Tous types de chaussures pour hommes, femmes et enfants",
+      "created_at": "2025-05-01T15:00:00Z",
+      "updated_at": "2025-05-01T15:00:00Z"
     }
   }
 ]

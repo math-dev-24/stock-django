@@ -59,11 +59,16 @@
                 </a>
                 <span class="separator"></span>
                 <span class="ml-4 font-semibold text-sm">Stock</span>
-                <a href="#" class="link-dash">
-                    Stocks
+                <a href="{% url 'stock:flux' %}" class="{% active_link 'stock:flux' 'current_link' 'link-dash' strict=True %}">
+                    Flux
                 </a>
                 <a class="link-dash">
                     Ventes
+                </a>
+                <span class="separator"></span>
+                <span class="ml-4 font-semibold text-sm">Paramètres</span>
+                <a href="{% url 'order:state_list' %}" class="{% active_link 'order:state_list' 'current_link' 'link-dash' strict=True %}">
+                    Statut
                 </a>
                 <span class="separator"></span>
                 <a href="{% url 'user:logout' %}" class="{% active_link 'user:logout' 'current_link' 'link-dash'%}">Déconnexion</a>

@@ -3,6 +3,7 @@ from django.db import models
 import uuid
 from catalog.models import Product
 
+
 class Company(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=150, verbose_name="Nom de la société")
@@ -28,7 +29,8 @@ class StateOrder(models.Model):
         BLOCKED = "Blocked", "Blocked"
         FINISHED = "Finished", "Finished"
 
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=150, verbose_name="Nom", default="Open")
     group_state = models.CharField(max_length=20, choices=Group.choices, default=Group.OPEN)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de création")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
@@ -42,9 +44,11 @@ class Order(models.Model):
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     reference = models.CharField(max_length=150, verbose_name="Référence")
-    from_company = models.ForeignKey(Company, related_name="orders", on_delete=models.CASCADE)
-    to_company = models.ForeignKey(Company, related_name="orders", on_delete=models.CASCADE)
-    state = models.ForeignKey(StateOrder, related_name="lines", on_delete=models.CASCADE)
+    # Si null, c'est une arrivée de stock
+    from_company = models.ForeignKey(Company, related_name="order_from", on_delete=models.CASCADE, null=True)
+    # Si null, c'est une vente, au voir faire au pire plus tard un statut customer
+    to_company = models.ForeignKey(Company, related_name="order_to", on_delete=models.CASCADE, null=True)
+    state = models.ForeignKey(StateOrder, related_name="state_order", on_delete=models.CASCADE)
     vat = models.CharField(max_length=20, choices=VAT.choices, default=VAT.NORMAL)
     ttc = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Toutes taxes comprises")
     ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Hors Taxe")
@@ -53,7 +57,7 @@ class Order(models.Model):
 
 
 class LineOrder(models.Model):
-    id = models.Index(models.UUIDField(primary_key=True, editable=False))
+    id = models.AutoField(primary_key=True)
     product = models.ForeignKey(Product, related_name="orders", on_delete=models.CASCADE)
     order = models.ForeignKey(Order, related_name="lines", on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)

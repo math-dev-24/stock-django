@@ -1,6 +1,6 @@
 [
   {
-    "model": "stock.product",
+    "model": "catalog.product",
     "pk": "a7c86c28-f4e1-4e3a-9f17-9b89d7a30425",
     "fields": {
       "name": "Smartphone XYZ",
@@ -8,11 +8,11 @@
       "sku": "PHONE-XYZ-001",
       "created_at": "2025-05-01T10:15:00Z",
       "updated_at": "2025-05-01T10:15:00Z",
-      "category": [1, 2]
+      "category": [1, 20]
     }
   },
   {
-    "model": "stock.product",
+    "model": "catalog.product",
     "pk": "b5c4e3d2-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
     "fields": {
       "name": "Ordinateur portable Omen",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "stock.product",
+    "model": "catalog.product",
     "pk": "c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8",
     "fields": {
       "name": "Tablette Pro",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "model": "stock.product",
+    "model": "catalog.product",
     "pk": "d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9",
     "fields": {
       "name": "T-shirt Premium",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "stock.product",
+    "model": "catalog.product",
     "pk": "e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0",
     "fields": {
       "name": "Lampe intelligente",
@@ -56,7 +56,427 @@
       "sku": "LAMP-SMART-005",
       "created_at": "2025-05-01T11:15:00Z",
       "updated_at": "2025-05-01T11:15:00Z",
-      "category": [1, 4]
+      "category": [1, 4, 22]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "f6a7b8c9-d0e1-f2a3-b4c5-d6e7f8a9b0c1",
+    "fields": {
+      "name": "Montre connectée FitPro",
+      "description": "Montre intelligente avec suivi d'activité et notifications",
+      "sku": "WATCH-FIT-006",
+      "created_at": "2025-05-01T11:30:00Z",
+      "updated_at": "2025-05-01T11:30:00Z",
+      "category": [1, 5, 7, 14]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "a8b9c0d1-e2f3-a4b5-c6d7-e8f9a0b1c2d3",
+    "fields": {
+      "name": "Canapé convertible Comfort",
+      "description": "Canapé 3 places convertible en lit avec rangement intégré",
+      "sku": "SOFA-COMF-007",
+      "created_at": "2025-05-01T11:45:00Z",
+      "updated_at": "2025-05-01T11:45:00Z",
+      "category": [4, 22]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "b9c0d1e2-f3a4-b5c6-d7e8-f9a0b1c2d3e4",
+    "fields": {
+      "name": "Vélo électrique CityRide",
+      "description": "Vélo à assistance électrique pour déplacements urbains",
+      "sku": "BIKE-CITY-008",
+      "created_at": "2025-05-01T12:00:00Z",
+      "updated_at": "2025-05-01T12:00:00Z",
+      "category": [5, 21]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "c0d1e2f3-a4b5-c6d7-e8f9-a0b1c2d3e4f5",
+    "fields": {
+      "name": "Café bio équitable",
+      "description": "Café en grains issu de l'agriculture biologique et du commerce équitable",
+      "sku": "COFFEE-BIO-009",
+      "created_at": "2025-05-01T12:15:00Z",
+      "updated_at": "2025-05-01T12:15:00Z",
+      "category": [6, 21]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "d1e2f3a4-b5c6-d7e8-f9a0-b1c2d3e4f5a6",
+    "fields": {
+      "name": "Sérum visage anti-âge",
+      "description": "Soin concentré pour réduire les signes de l'âge et hydrater la peau",
+      "sku": "SERUM-AGE-010",
+      "created_at": "2025-05-01T12:30:00Z",
+      "updated_at": "2025-05-01T12:30:00Z",
+      "category": [7]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "e2f3a4b5-c6d7-e8f9-a0b1-c2d3e4f5a6b7",
+    "fields": {
+      "name": "Jeu de société Mystères & Complots",
+      "description": "Jeu d'enquête et de déduction pour 3 à 8 joueurs",
+      "sku": "GAME-MYST-011",
+      "created_at": "2025-05-01T12:45:00Z",
+      "updated_at": "2025-05-01T12:45:00Z",
+      "category": [8]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "f3a4b5c6-d7e8-f9a0-b1c2-d3e4f5a6b7c8",
+    "fields": {
+      "name": "Support smartphone voiture",
+      "description": "Support magnétique pour tableau de bord compatible avec tous les smartphones",
+      "sku": "CARHOLD-012",
+      "created_at": "2025-05-01T13:00:00Z",
+      "updated_at": "2025-05-01T13:00:00Z",
+      "category": [1, 9]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "a5b6c7d8-e9f0-a1b2-c3d4-e5f6a7b8c9d0",
+    "fields": {
+      "name": "Roman 'Les Ombres d'Automne'",
+      "description": "Thriller psychologique par l'auteur à succès Marie Duplantier",
+      "sku": "BOOK-OMBR-013",
+      "created_at": "2025-05-01T13:15:00Z",
+      "updated_at": "2025-05-01T13:15:00Z",
+      "category": [10]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "b6c7d8e9-f0a1-b2c3-d4e5-f6a7b8c9d0e1",
+    "fields": {
+      "name": "Perceuse sans fil 18V",
+      "description": "Perceuse-visseuse sans fil avec 2 batteries et mallette",
+      "sku": "DRILL-18V-014",
+      "created_at": "2025-05-01T13:30:00Z",
+      "updated_at": "2025-05-01T13:30:00Z",
+      "category": [11]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "c7d8e9f0-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
+    "fields": {
+      "name": "Panier douillet pour chat",
+      "description": "Panier confortable en forme de grotte pour chat jusqu'à 6kg",
+      "sku": "CATBED-015",
+      "created_at": "2025-05-01T13:45:00Z",
+      "updated_at": "2025-05-01T13:45:00Z",
+      "category": [12, 4]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "d8e9f0a1-b2c3-d4e5-f6a7-b8c9d0e1f2a3",
+    "fields": {
+      "name": "Set de peinture acrylique",
+      "description": "Coffret de 24 tubes de peinture acrylique et pinceaux assortis",
+      "sku": "PAINT-ACR-016",
+      "created_at": "2025-05-01T14:00:00Z",
+      "updated_at": "2025-05-01T14:00:00Z",
+      "category": [13]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "e9f0a1b2-c3d4-e5f6-a7b8-c9d0e1f2a3b4",
+    "fields": {
+      "name": "Collier en argent massif",
+      "description": "Collier artisanal en argent 925 avec pendentif géométrique",
+      "sku": "NECKLAC-017",
+      "created_at": "2025-05-01T14:15:00Z",
+      "updated_at": "2025-05-01T14:15:00Z",
+      "category": [14]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "f0a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+    "fields": {
+      "name": "Siège auto groupe 1/2/3",
+      "description": "Siège auto évolutif de 9 mois à 12 ans avec protection latérale",
+      "sku": "CARSEAT-018",
+      "created_at": "2025-05-01T14:30:00Z",
+      "updated_at": "2025-05-01T14:30:00Z",
+      "category": [15, 9]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "a2b3c4d5-e6f7-a8b9-c0d1-e2f3a4b5c6d7",
+    "fields": {
+      "name": "Guitare acoustique débutant",
+      "description": "Guitare acoustique 4/4 avec housse et accessoires pour débutants",
+      "sku": "GUITAR-019",
+      "created_at": "2025-05-01T14:45:00Z",
+      "updated_at": "2025-05-01T14:45:00Z",
+      "category": [16]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "b3c4d5e6-f7a8-b9c0-d1e2-f3a4b5c6d7e8",
+    "fields": {
+      "name": "Agenda 2025 personnalisable",
+      "description": "Agenda journalier avec couverture personnalisable et pages détachables",
+      "sku": "AGENDA-020",
+      "created_at": "2025-05-01T15:00:00Z",
+      "updated_at": "2025-05-01T15:00:00Z",
+      "category": [17]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "c4d5e6f7-a8b9-c0d1-e2f3-a4b5c6d7e8f9",
+    "fields": {
+      "name": "Valise cabine ultralight",
+      "description": "Valise rigide format cabine de 42L avec serrure TSA",
+      "sku": "LUGGAGE-021",
+      "created_at": "2025-05-01T15:15:00Z",
+      "updated_at": "2025-05-01T15:15:00Z",
+      "category": [18]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "d5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0",
+    "fields": {
+      "name": "Formation photographie avancée",
+      "description": "Cours en ligne de 20h pour maîtriser les techniques de photographie professionnelle",
+      "sku": "COURSE-022",
+      "created_at": "2025-05-01T15:30:00Z",
+      "updated_at": "2025-05-01T15:30:00Z",
+      "category": [19, 23]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "e6f7a8b9-c0d1-e2f3-a4b5-c6d7e8f9a0b1",
+    "fields": {
+      "name": "Casque de réalité virtuelle NextGen",
+      "description": "Casque VR autonome avec résolution 4K par œil et contrôleurs haptiques",
+      "sku": "VR-NEXT-023",
+      "created_at": "2025-05-01T15:45:00Z",
+      "updated_at": "2025-05-01T15:45:00Z",
+      "category": [1, 20]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "f7a8b9c0-d1e2-f3a4-b5c6-d7e8f9a0b1c2",
+    "fields": {
+      "name": "Gourde isotherme écologique",
+      "description": "Gourde en acier inoxydable maintenant la température 24h avec zéro plastique",
+      "sku": "BOTTLE-024",
+      "created_at": "2025-05-01T16:00:00Z",
+      "updated_at": "2025-05-01T16:00:00Z",
+      "category": [21, 6]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "a9b0c1d2-e3f4-a5b6-c7d8-e9f0a1b2c3d4",
+    "fields": {
+      "name": "Suspension design nordique",
+      "description": "Lustre en bois clair et métal noir au design scandinave",
+      "sku": "LIGHT-025",
+      "created_at": "2025-05-01T16:15:00Z",
+      "updated_at": "2025-05-01T16:15:00Z",
+      "category": [4, 22]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "b0c1d2e3-f4a5-b6c7-d8e9-f0a1b2c3d4e5",
+    "fields": {
+      "name": "Appareil photo hybride ProShot",
+      "description": "Appareil photo hybride 24MP avec objectif 18-55mm et stabilisation",
+      "sku": "CAMERA-026",
+      "created_at": "2025-05-01T16:30:00Z",
+      "updated_at": "2025-05-01T16:30:00Z",
+      "category": [1, 23]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "c1d2e3f4-a5b6-c7d8-e9f0-a1b2c3d4e5f6",
+    "fields": {
+      "name": "Robot cuiseur multifonction",
+      "description": "Robot cuiseur avec 10 programmes automatiques et connectivité WiFi",
+      "sku": "ROBOT-027",
+      "created_at": "2025-05-01T16:45:00Z",
+      "updated_at": "2025-05-01T16:45:00Z",
+      "category": [1, 24, 6]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "d2e3f4a5-b6c7-d8e9-f0a1-b2c3d4e5f6a7",
+    "fields": {
+      "name": "Baskets running performance",
+      "description": "Chaussures de course légères avec amorti réactif et support de voûte plantaire",
+      "sku": "SHOES-028",
+      "created_at": "2025-05-01T17:00:00Z",
+      "updated_at": "2025-05-01T17:00:00Z",
+      "category": [5, 25]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "e3f4a5b6-c7d8-e9f0-a1b2-c3d4e5f6a7b8",
+    "fields": {
+      "name": "Écouteurs sans fil à réduction de bruit",
+      "description": "Écouteurs intra-auriculaires avec réduction de bruit active et autonomie 8h",
+      "sku": "AUDIO-029",
+      "created_at": "2025-05-01T17:15:00Z",
+      "updated_at": "2025-05-01T17:15:00Z",
+      "category": [1, 20]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "f4a5b6c7-d8e9-f0a1-b2c3-d4e5f6a7b8c9",
+    "fields": {
+      "name": "Kit jardinière balcon",
+      "description": "Kit complet pour créer un potager sur balcon avec bacs, terreau et graines bio",
+      "sku": "GARDEN-030",
+      "created_at": "2025-05-01T17:30:00Z",
+      "updated_at": "2025-05-01T17:30:00Z",
+      "category": [11, 21]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "a0b1c2d3-e4f5-a6b7-c8d9-e0f1a2b3c4d5",
+    "fields": {
+      "name": "Imprimante 3D compacte",
+      "description": "Imprimante 3D pour particuliers avec volume d'impression 15x15x15cm",
+      "sku": "3DPRINT-031",
+      "created_at": "2025-05-01T17:45:00Z",
+      "updated_at": "2025-05-01T17:45:00Z",
+      "category": [2, 20]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "b1c2d3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6",
+    "fields": {
+      "name": "Sac à dos antivol",
+      "description": "Sac à dos avec compartiment laptop, port USB et système antivol",
+      "sku": "BACKPACK-032",
+      "created_at": "2025-05-01T18:00:00Z",
+      "updated_at": "2025-05-01T18:00:00Z",
+      "category": [2, 18]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "c2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7",
+    "fields": {
+      "name": "Climatiseur portable intelligent",
+      "description": "Climatiseur mobile avec contrôle via application et programmation horaire",
+      "sku": "AIRCOND-033",
+      "created_at": "2025-05-01T18:15:00Z",
+      "updated_at": "2025-05-01T18:15:00Z",
+      "category": [1, 4, 24]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "d3e4f5a6-b7c8-d9e0-f1a2-b3c4d5e6f7a8",
+    "fields": {
+      "name": "Gants de boxe professionnels",
+      "description": "Gants de boxe en cuir véritable avec rembourrage multi-couches",
+      "sku": "BOXING-034",
+      "created_at": "2025-05-01T18:30:00Z",
+      "updated_at": "2025-05-01T18:30:00Z",
+      "category": [5]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "e4f5a6b7-c8d9-e0f1-a2b3-c4d5e6f7a8b9",
+    "fields": {
+      "name": "Mixeur à smoothie portable",
+      "description": "Mixeur rechargeable USB pour smoothies et boissons protéinées",
+      "sku": "BLENDER-035",
+      "created_at": "2025-05-01T18:45:00Z",
+      "updated_at": "2025-05-01T18:45:00Z",
+      "category": [6, 24]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "f5a6b7c8-d9e0-f1a2-b3c4-d5e6f7a8b9c0",
+    "fields": {
+      "name": "Écharpe en cachemire",
+      "description": "Écharpe luxueuse en cachemire pur avec motif tartan classique",
+      "sku": "SCARF-036",
+      "created_at": "2025-05-01T19:00:00Z",
+      "updated_at": "2025-05-01T19:00:00Z",
+      "category": [3, 14]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "a7b8c9d0-e1f2-a3b4-c5d6-e7f8a9b0c1d2",
+    "fields": {
+      "name": "Haut-parleur Bluetooth waterproof",
+      "description": "Enceinte portable résistante à l'eau avec 20h d'autonomie",
+      "sku": "SPEAKER-037",
+      "created_at": "2025-05-01T19:15:00Z",
+      "updated_at": "2025-05-01T19:15:00Z",
+      "category": [1, 5]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "b8c9d0e1-f2a3-b4c5-d6e7-f8a9b0c1d2e3",
+    "fields": {
+      "name": "Trottinette électrique pliable",
+      "description": "Trottinette électrique urbaine avec autonomie de 30km et pliage rapide",
+      "sku": "SCOOTER-038",
+      "created_at": "2025-05-01T19:30:00Z",
+      "updated_at": "2025-05-01T19:30:00Z",
+      "category": [5, 9, 20]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "c9d0e1f2-a3b4-c5d6-e7f8-a9b0c1d2e3f4",
+    "fields": {
+      "name": "Batterie externe solaire",
+      "description": "Batterie portable 20000mAh avec panneau solaire intégré",
+      "sku": "BATTERY-039",
+      "created_at": "2025-05-01T19:45:00Z",
+      "updated_at": "2025-05-01T19:45:00Z",
+      "category": [1, 18, 21]
+    }
+  },
+  {
+    "model": "catalog.product",
+    "pk": "d0e1f2a3-b4c5-d6e7-f8a9-b0c1d2e3f4a5",
+    "fields": {
+      "name": "Diffuseur d'huiles essentielles",
+      "description": "Diffuseur aromatique ultrasonique avec éclairage LED changeant",
+      "sku": "DIFFUSE-040",
+      "created_at": "2025-05-01T20:00:00Z",
+      "updated_at": "2025-05-01T20:00:00Z",
+      "category": [4, 7, 22]
     }
   }
 ]

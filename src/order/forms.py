@@ -1,5 +1,5 @@
 from django import forms
-from order.models import Company
+from .models import Company, StateOrder
 
 
 class AddCompanyFrom(forms.ModelForm):
@@ -15,4 +15,14 @@ class AddCompanyFrom(forms.ModelForm):
             'zipcode': forms.TextInput(attrs={'class': 'w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500'}),
             'is_store': forms.CheckboxInput(attrs={'class': 'w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500'}),
             'is_warehouse': forms.CheckboxInput(attrs={'class': 'w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500'}),
+        }
+
+
+class AddStateOrderForm(forms.ModelForm):
+    class Meta:
+        model = StateOrder
+        fields = "__all__"
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500'}),
+            'group_state': forms.Select(attrs={'class': 'w-full border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500'}),
         }

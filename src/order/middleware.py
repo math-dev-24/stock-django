@@ -18,9 +18,10 @@ class CompanyMiddleware:
         else:
             request.current_company = None
 
-        if request.current_company is None and request.user.is_authenticated:
-            request.current_company = request.user.company_members.first()
-        request.list_company = Company.objects.all()
+        if request.user.is_authenticated:
+            request.list_company = Company.objects.filter(members=request.user)
+            if request.current_company is None and len(request.list_company) > 0:
+                request.current_company = request.user.company_members.first()
 
         response = self.get_response(request)
 

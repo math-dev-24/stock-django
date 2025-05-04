@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from catalog.models import Product, Category
+from order.models import Order
 
 
 def home_view(request):
@@ -15,13 +16,13 @@ def dashboard_view(request):
     products = Product.objects.all()
     categories = Category.objects.all()
 
-    categories_json = []
+    categories_json_list = []
 
     for category in categories:
-        categories_json.append({
-            'id': category.id,
-            'name': category.name,
-            'quantity': products.filter(category=category).count()
+        categories_json_list.append({
+            "id": category.id,
+            "name": category.name,
+            "quantity": products.filter(category=category).count()
         })
 
     context = {
@@ -37,6 +38,26 @@ def dashboard_view(request):
             "list": user_companies,
             "count": user_companies.count()
         },
-        "categories_json": categories_json
+        "categories_json_list": categories_json_list
     }
     return render(request, "stock/dashboard.html", context)
+
+
+@login_required
+def flux_view(request):
+    current_company = request.session.get('current_company')
+
+    command_in = Order.objects.filter(to_company=current_company)
+    command_out = Order.objects.filter(from_company=current_company)
+
+    context = {
+        "in": {
+            "list": command_in,
+            "count": command_in.count()
+        },
+        "out": {
+            "list": command_out,
+            "count": command_out.count()
+        }
+    }
+    return render(request, "stock/flux.html", context)

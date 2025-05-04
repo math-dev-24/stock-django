@@ -1,6 +1,6 @@
 [
   {
-    "model": "stock.company",
+    "model": "order.company",
     "pk": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
     "fields": {
       "name": "Tech Solutions SAS",
@@ -12,7 +12,7 @@
     }
   },
   {
-    "model": "stock.company",
+    "model": "order.company",
     "pk": "e86b1b4c-0e34-4ffc-9043-a5e621c4d6c3",
     "fields": {
       "name": "Digital Agency SARL",
@@ -24,7 +24,7 @@
     }
   },
   {
-    "model": "stock.company",
+    "model": "order.company",
     "pk": "d921d5cc-4050-4a80-9b4c-67a47832fd2d",
     "fields": {
       "name": "Consulting Group",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "model": "stock.company",
+    "model": "order.company",
     "pk": "c7fb8cea-43a1-4695-8ad8-84263de40538",
     "fields": {
       "name": "Marketing Experts",
@@ -48,7 +48,7 @@
     }
   },
   {
-    "model": "stock.company",
+    "model": "order.company",
     "pk": "b3cb7d2b-5d9f-48c1-92f9-8e6e3c4af8d1",
     "fields": {
       "name": "Développement Web SAS",

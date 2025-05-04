@@ -1,6 +1,6 @@
 [
   {
-    "model": "stock.price",
+    "model": "catalog.price",
     "pk": 1,
     "fields": {
       "product": "a7c86c28-f4e1-4e3a-9f17-9b89d7a30425",
@@ -9,7 +9,7 @@
     }
   },
   {
-    "model": "stock.price",
+    "model": "catalog.price",
     "pk": 2,
     "fields": {
       "product": "b5c4e3d2-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
@@ -18,7 +18,7 @@
     }
   },
   {
-    "model": "stock.price",
+    "model": "catalog.price",
     "pk": 3,
     "fields": {
       "product": "c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8",
@@ -27,7 +27,7 @@
     }
   },
   {
-    "model": "stock.price",
+    "model": "catalog.price",
     "pk": 4,
     "fields": {
       "product": "d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9",
@@ -36,7 +36,7 @@
     }
   },
   {
-    "model": "stock.price",
+    "model": "catalog.price",
     "pk": 5,
     "fields": {
       "product": "e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0",
@@ -45,12 +45,498 @@
     }
   },
   {
-    "model": "stock.price",
+    "model": "catalog.price",
     "pk": 6,
     "fields": {
       "product": "a7c86c28-f4e1-4e3a-9f17-9b89d7a30425",
       "price": "849.99",
       "created_at": "2025-05-01T14:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 7,
+    "fields": {
+      "product": "f6a7b8c9-d0e1-f2a3-b4c5-d6e7f8a9b0c1",
+      "price": "249.99",
+      "created_at": "2025-05-01T11:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 8,
+    "fields": {
+      "product": "a8b9c0d1-e2f3-a4b5-c6d7-e8f9a0b1c2d3",
+      "price": "899.99",
+      "created_at": "2025-05-01T11:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 9,
+    "fields": {
+      "product": "b9c0d1e2-f3a4-b5c6-d7e8-f9a0b1c2d3e4",
+      "price": "1499.99",
+      "created_at": "2025-05-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 10,
+    "fields": {
+      "product": "c0d1e2f3-a4b5-c6d7-e8f9-a0b1c2d3e4f5",
+      "price": "14.99",
+      "created_at": "2025-05-01T12:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 11,
+    "fields": {
+      "product": "d1e2f3a4-b5c6-d7e8-f9a0-b1c2d3e4f5a6",
+      "price": "59.99",
+      "created_at": "2025-05-01T12:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 12,
+    "fields": {
+      "product": "e2f3a4b5-c6d7-e8f9-a0b1-c2d3e4f5a6b7",
+      "price": "39.99",
+      "created_at": "2025-05-01T12:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 13,
+    "fields": {
+      "product": "f3a4b5c6-d7e8-f9a0-b1c2-d3e4f5a6b7c8",
+      "price": "19.99",
+      "created_at": "2025-05-01T13:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 14,
+    "fields": {
+      "product": "a5b6c7d8-e9f0-a1b2-c3d4-e5f6a7b8c9d0",
+      "price": "24.99",
+      "created_at": "2025-05-01T13:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 15,
+    "fields": {
+      "product": "b6c7d8e9-f0a1-b2c3-d4e5-f6a7b8c9d0e1",
+      "price": "129.99",
+      "created_at": "2025-05-01T13:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 16,
+    "fields": {
+      "product": "c7d8e9f0-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
+      "price": "49.99",
+      "created_at": "2025-05-01T13:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 17,
+    "fields": {
+      "product": "d8e9f0a1-b2c3-d4e5-f6a7-b8c9d0e1f2a3",
+      "price": "34.99",
+      "created_at": "2025-05-01T14:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 18,
+    "fields": {
+      "product": "e9f0a1b2-c3d4-e5f6-a7b8-c9d0e1f2a3b4",
+      "price": "79.99",
+      "created_at": "2025-05-01T14:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 19,
+    "fields": {
+      "product": "f0a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+      "price": "249.99",
+      "created_at": "2025-05-01T14:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 20,
+    "fields": {
+      "product": "a2b3c4d5-e6f7-a8b9-c0d1-e2f3a4b5c6d7",
+      "price": "189.99",
+      "created_at": "2025-05-01T14:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 21,
+    "fields": {
+      "product": "b3c4d5e6-f7a8-b9c0-d1e2-f3a4b5c6d7e8",
+      "price": "29.99",
+      "created_at": "2025-05-01T15:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 22,
+    "fields": {
+      "product": "c4d5e6f7-a8b9-c0d1-e2f3-a4b5c6d7e8f9",
+      "price": "129.99",
+      "created_at": "2025-05-01T15:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 23,
+    "fields": {
+      "product": "d5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0",
+      "price": "299.99",
+      "created_at": "2025-05-01T15:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 24,
+    "fields": {
+      "product": "e6f7a8b9-c0d1-e2f3-a4b5-c6d7e8f9a0b1",
+      "price": "499.99",
+      "created_at": "2025-05-01T15:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 25,
+    "fields": {
+      "product": "f7a8b9c0-d1e2-f3a4-b5c6-d7e8f9a0b1c2",
+      "price": "24.99",
+      "created_at": "2025-05-01T16:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 26,
+    "fields": {
+      "product": "a9b0c1d2-e3f4-a5b6-c7d8-e9f0a1b2c3d4",
+      "price": "159.99",
+      "created_at": "2025-05-01T16:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 27,
+    "fields": {
+      "product": "b0c1d2e3-f4a5-b6c7-d8e9-f0a1b2c3d4e5",
+      "price": "899.99",
+      "created_at": "2025-05-01T16:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 28,
+    "fields": {
+      "product": "c1d2e3f4-a5b6-c7d8-e9f0-a1b2c3d4e5f6",
+      "price": "449.99",
+      "created_at": "2025-05-01T16:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 29,
+    "fields": {
+      "product": "d2e3f4a5-b6c7-d8e9-f0a1-b2c3d4e5f6a7",
+      "price": "129.99",
+      "created_at": "2025-05-01T17:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 30,
+    "fields": {
+      "product": "e3f4a5b6-c7d8-e9f0-a1b2-c3d4e5f6a7b8",
+      "price": "199.99",
+      "created_at": "2025-05-01T17:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 31,
+    "fields": {
+      "product": "f4a5b6c7-d8e9-f0a1-b2c3-d4e5f6a7b8c9",
+      "price": "69.99",
+      "created_at": "2025-05-01T17:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 32,
+    "fields": {
+      "product": "a0b1c2d3-e4f5-a6b7-c8d9-e0f1a2b3c4d5",
+      "price": "599.99",
+      "created_at": "2025-05-01T17:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 33,
+    "fields": {
+      "product": "b1c2d3e4-f5a6-b7c8-d9e0-f1a2b3c4d5e6",
+      "price": "79.99",
+      "created_at": "2025-05-01T18:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 34,
+    "fields": {
+      "product": "c2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7",
+      "price": "349.99",
+      "created_at": "2025-05-01T18:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 35,
+    "fields": {
+      "product": "d3e4f5a6-b7c8-d9e0-f1a2-b3c4d5e6f7a8",
+      "price": "89.99",
+      "created_at": "2025-05-01T18:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 36,
+    "fields": {
+      "product": "e4f5a6b7-c8d9-e0f1-a2b3-c4d5e6f7a8b9",
+      "price": "39.99",
+      "created_at": "2025-05-01T18:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 37,
+    "fields": {
+      "product": "f5a6b7c8-d9e0-f1a2-b3c4-d5e6f7a8b9c0",
+      "price": "129.99",
+      "created_at": "2025-05-01T19:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 38,
+    "fields": {
+      "product": "a7b8c9d0-e1f2-a3b4-c5d6-e7f8a9b0c1d2",
+      "price": "99.99",
+      "created_at": "2025-05-01T19:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 39,
+    "fields": {
+      "product": "b8c9d0e1-f2a3-b4c5-d6e7-f8a9b0c1d2e3",
+      "price": "599.99",
+      "created_at": "2025-05-01T19:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 40,
+    "fields": {
+      "product": "c9d0e1f2-a3b4-c5d6-e7f8-a9b0c1d2e3f4",
+      "price": "59.99",
+      "created_at": "2025-05-01T19:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 41,
+    "fields": {
+      "product": "d0e1f2a3-b4c5-d6e7-f8a9-b0c1d2e3f4a5",
+      "price": "49.99",
+      "created_at": "2025-05-01T20:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 42,
+    "fields": {
+      "product": "b5c4e3d2-a1b2-c3d4-e5f6-a7b8c9d0e1f2",
+      "price": "1199.99",
+      "created_at": "2025-05-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 43,
+    "fields": {
+      "product": "c3d4e5f6-a7b8-c9d0-e1f2-a3b4c5d6e7f8",
+      "price": "649.99",
+      "created_at": "2025-05-02T10:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 44,
+    "fields": {
+      "product": "f6a7b8c9-d0e1-f2a3-b4c5-d6e7f8a9b0c1",
+      "price": "229.99",
+      "created_at": "2025-05-02T10:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 45,
+    "fields": {
+      "product": "a8b9c0d1-e2f3-a4b5-c6d7-e8f9a0b1c2d3",
+      "price": "849.99",
+      "created_at": "2025-05-02T10:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 46,
+    "fields": {
+      "product": "e6f7a8b9-c0d1-e2f3-a4b5-c6d7e8f9a0b1",
+      "price": "479.99",
+      "created_at": "2025-05-02T11:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 47,
+    "fields": {
+      "product": "b0c1d2e3-f4a5-b6c7-d8e9-f0a1b2c3d4e5",
+      "price": "849.99",
+      "created_at": "2025-05-02T11:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 48,
+    "fields": {
+      "product": "c1d2e3f4-a5b6-c7d8-e9f0-a1b2c3d4e5f6",
+      "price": "429.99",
+      "created_at": "2025-05-02T11:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 49,
+    "fields": {
+      "product": "b8c9d0e1-f2a3-b4c5-d6e7-f8a9b0c1d2e3",
+      "price": "579.99",
+      "created_at": "2025-05-02T11:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 50,
+    "fields": {
+      "product": "a0b1c2d3-e4f5-a6b7-c8d9-e0f1a2b3c4d5",
+      "price": "549.99",
+      "created_at": "2025-05-02T12:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 51,
+    "fields": {
+      "product": "c2d3e4f5-a6b7-c8d9-e0f1-a2b3c4d5e6f7",
+      "price": "329.99",
+      "created_at": "2025-05-02T12:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 52,
+    "fields": {
+      "product": "d5e6f7a8-b9c0-d1e2-f3a4-b5c6d7e8f9a0",
+      "price": "249.99",
+      "created_at": "2025-05-02T12:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 53,
+    "fields": {
+      "product": "f0a1b2c3-d4e5-f6a7-b8c9-d0e1f2a3b4c5",
+      "price": "229.99",
+      "created_at": "2025-05-02T12:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 54,
+    "fields": {
+      "product": "a2b3c4d5-e6f7-a8b9-c0d1-e2f3a4b5c6d7",
+      "price": "179.99",
+      "created_at": "2025-05-02T13:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 55,
+    "fields": {
+      "product": "d4e5f6a7-b8c9-d0e1-f2a3-b4c5d6e7f8a9",
+      "price": "24.99",
+      "created_at": "2025-05-02T13:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 56,
+    "fields": {
+      "product": "e9f0a1b2-c3d4-e5f6-a7b8-c9d0e1f2a3b4",
+      "price": "74.99",
+      "created_at": "2025-05-02T13:30:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 57,
+    "fields": {
+      "product": "c4d5e6f7-a8b9-c0d1-e2f3-a4b5c6d7e8f9",
+      "price": "119.99",
+      "created_at": "2025-05-02T13:45:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 58,
+    "fields": {
+      "product": "e5f6a7b8-c9d0-e1f2-a3b4-c5d6e7f8a9b0",
+      "price": "79.99",
+      "created_at": "2025-05-02T14:00:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 59,
+    "fields": {
+      "product": "f7a8b9c0-d1e2-f3a4-b5c6-d7e8f9a0b1c2",
+      "price": "22.99",
+      "created_at": "2025-05-02T14:15:00Z"
+    }
+  },
+  {
+    "model": "catalog.price",
+    "pk": 60,
+    "fields": {
+      "product": "d3e4f5a6-b7c8-d9e0-f1a2-b3c4d5e6f7a8",
+      "price": "84.99",
+      "created_at": "2025-05-02T14:30:00Z"
     }
   }
 ]

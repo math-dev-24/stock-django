@@ -1,0 +1,36 @@
+{% extends 'baseDashboard.html' %}
+
+{% block title %}Liste des états{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>Liste des états</h1>
+        <div class="content">
+            <div class="grid grid-cols-3 gap-4">
+                <a href="{% url 'order:add_state' %}" class="btn btn-indigo-outline">
+                    Ajouter un état
+                </a>
+            </div>
+            <div>
+            {%  if states %}
+                <div>
+                    {% for state in states %}
+                        <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300">
+                            <h2 class="text-xl font-semibold">
+                                {{ state.name }}
+                            </h2>
+                            <p class="font-bold">
+                                Groupe : {{ state.group_state }}
+                            </p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="callout">
+                    Aucun état n'a été trouvé. Veuillez en ajouter un.
+                </div>
+            {% endif %}
+        </div>
+        </div>
+    </section>
+{% endblock %}

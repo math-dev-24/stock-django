@@ -8,8 +8,22 @@ from math import floor
 
 
 def product_list_view(request):
-    products = Product.objects.all()
     params = request.GET.dict()
+
+    search = params.get('search', '')
+    category = params.get('category', '')
+
+    if not search and not category:
+        products = Product.objects.all()
+    else:
+        if category and search:
+            products = Product.objects.filter(category=category).filter(name__icontains=search)
+        elif category:
+            products = Product.objects.filter(category=category)
+        elif search:
+            products = Product.objects.filter(name__icontains=search)
+        else:
+            products = Product.objects.all()
 
     items_per_page = 6
     page = int(params.get('page', 1))
@@ -19,9 +33,12 @@ def product_list_view(request):
         'is_admin': request.user.is_staff,
         'user_name': request.user.username if request.user.is_authenticated else None,
         'products': products[items_per_page*(page-1):items_per_page*page],
+        'categories': Category.objects.all(),
         'count': len(products),
         "max_page": max_page,
-        "page": page
+        "page": page,
+        "search": search,
+        "category_filtered": category
     }
 
     return render(request, "catalog/product/list.html", context)

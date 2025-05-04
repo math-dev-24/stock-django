@@ -1,4 +1,5 @@
 {% extends "baseDashboard.html" %}
+{% load static %}
 
 {% block title %}
     {{ block.super }} - Products
@@ -15,6 +16,28 @@
             Ajouter un produit
         </a>
     </div>
+   <div>
+       <form method="GET" class="grid grid-cols-5 gap-2" id="filter-form">
+            <div class="form-group col-span-2">
+                <label for="category">Catégorie</label>
+                <select name="category" id="category" class="border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500">
+                   <option value="">Toutes les catégories</option>
+                   {% for category in categories %}
+                       <option value="{{ category.id }}" {% if category.id|stringformat:"s" == category_filtered %}selected{% endif %}>{{ category.name }}</option>
+                   {% endfor %}
+               </select>
+            </div>
+            <div class="form-group flex-1 col-span-2">
+                <label for="search">Rechercher</label>
+                <input type="text" id="search" name="search" value="{% if search %}{{ search }}{% endif %}" placeholder="Rechercher" class="border border-gray-300 rounded-lg p-2 focus:border-indigo-500 focus:ring-indigo-500">
+            </div>
+           <input type="hidden" id="page" name="page" value="{{ page }}">
+            <input type="hidden" id="max_page" name="max_page" value="{{ max_page }}">
+           <button type="submit" class="btn btn-primary">
+               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+           </button>
+       </form>
+   </div>
         {% if products %}
         <div class="grid grid-cols-3 gap-6">
             {% for product in products %}
@@ -55,13 +78,13 @@
         </div>
 
         <!-- Pagination -->
-        <div class="mt-4 flex gap-2 justify-around border-t border-gray-200 mt-8 pt-3 pb-6">
-            <a href='{%if page == 1 %}?page=1{% else %}?page={{ page|add:"-1" }}{% endif %}' class='text-blue-600 hover:text-blue-800 font-medium flex items-center'>
+        <div class="flex gap-2 justify-around border-t border-gray-200 mt-8 pt-3 pb-6">
+            <a class='text-blue-600 hover:text-blue-800 font-medium flex items-center' id="link-page-prev">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z"/></svg>
                 Précédent
             </a>
             <p class="text-center">{{ page }} sur {{ max_page }}</p>
-            <a href='{%if page == max_page %}?page={{ max_page }}{% else %}?page={{ page|add:"1" }}{% endif %}' class='text-blue-600 hover:text-blue-800 font-medium flex items-center'>
+            <a class='text-blue-600 hover:text-blue-800 font-medium flex items-center' id="link-page-next">
                 Suivant
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
             </a>
@@ -77,7 +100,7 @@
                 </div>
                 <div class="ml-3">
                     <p class="text-sm text-yellow-700">
-                        Aucun produit trouvé. Veuillez en ajouter.
+                        Aucun produit trouvé. Veuillez en ajouter. ou changer de filtre.
                     </p>
                 </div>
             </div>
@@ -87,3 +110,7 @@
     </div>
 
 {%  endblock %}
+
+{% block scripts %}
+<script src="{% static 'catalog/js/filter-product.js' %}"></script>
+{% endblock %}

@@ -1,15 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Récupérer les données des catégories passées par le backend
-        let categoriesData = document.getElementById('categoryData');
 
-        categoriesData = JSON.parse(categoriesData.dataset.categories);
+    const categoriesElement = document.getElementById('categories-list');
 
-    if (!categoriesData || categoriesData.length === 0) {
-        console.log('Aucune donnée de catégorie disponible');
+    if (!categoriesElement) {
+        console.error("Élément #categories-list introuvable");
         return;
     }
 
-    console.log(categoriesData);
+    let categoriesData;
+    try {
+        categoriesData = JSON.parse(categoriesElement.textContent);
+    } catch (error) {
+        console.error("Erreur de parsing JSON:", error);
+        console.log("Contenu brut:", categoriesElement.textContent);
+        return;
+    }
 
     const labels = categoriesData.map(cat => cat.name);
     const quantities = categoriesData.map(cat => parseInt(cat.quantity, 10));

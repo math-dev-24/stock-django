@@ -1,0 +1,16 @@
+{% extends "baseDashboard.html" %}
+
+{% block title %}Edition de la société : {{ company.name }}{% endblock %}
+
+{% block content %}
+<div class="section">
+            <h1>Edition de la société</h1>
+    <div class="content">
+            <form method="post" class="max-w-3xl mx-auto" action="{% url 'order:company_edit' company.id %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+    </div>
+</div>
+{% endblock %}

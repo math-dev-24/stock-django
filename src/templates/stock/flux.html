@@ -1,0 +1,64 @@
+{% extends 'baseDashboard.html' %}
+
+{% block title %}Flux de stock{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>Flux de stock</h1>
+
+        <div class="content">
+            <div class="grid grid-cols-3 gap-4 my-2">
+                <a href="{% url 'order:add_order' %}" class="btn btn-indigo-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    Ajouter un mouvement
+                </a>
+            </div>
+            <div>
+                <h2 class="text-xl font-semibold">Commandes entrantes :</h2>
+                <div class="grid grid-cols-3 gap-4">
+                    {% if in.count > 0 %}
+                        {% for order in in.list %}
+                            <div class="card card-compact">
+                                <div class="card-body">
+                                    <h3 class="card-title">{{ order.reference }}</h3>
+                                    <p class="card-text">
+                                        <span class="badge badge-secondary">{{ order.from_company.name }}</span>
+                                        <span class="badge badge-secondary">{{ order.to_company.name }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="callout callout-warning">
+                            Aucune commande entrante.
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        <div>
+            <h2 class="text-xl font-semibold">Commandes sortantes :</h2>
+            <div class="grid grid-cols-3 gap-4">
+                {% if out.count > 0 %}
+                    {% for order in out.list %}
+                        <div class="card card-compact">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ order.reference }}</h3>
+                                <p class="card-text">
+                                    <span class="badge badge-secondary">{{ order.from_company.name }}</span>
+                                    <span class="badge badge-secondary">{{ order.to_company.name }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="callout callout-warning">
+                        Aucune commande sortante.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+{% endblock %}

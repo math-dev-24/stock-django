@@ -1,0 +1,18 @@
+{% extends 'baseDashboard.html' %}
+
+{% block title %}Ajouter un état{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>Ajouter un état</h1>
+        <div class="content">
+            <form method="post" class="flex flex-col gap-4 max-w-md mx-auto">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    Ajouter
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

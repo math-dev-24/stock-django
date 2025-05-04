@@ -1,0 +1,102 @@
+{% extends 'baseDashboard.html' %}
+{% load static %}
+
+{% block title %}Ajouter un mouvement{% endblock %}
+
+{% block content %}
+    <section class="section">
+        <h1>Ajouter un mouvement</h1>
+        <div class="content">
+            <form method="post" class="grid grid-cols-3 gap-4">
+                {% csrf_token %}
+
+                <div class="form-group col-span-3">
+                    <label for="reference">Référence :<span class="text-red-500">*</span></label>
+                    <input type="text" required name="reference" id="reference" class="form-control" placeholder="Référence">
+                </div>
+
+                <div class="form-group col-span-3">
+                    <label for="state">Statut :</label>
+                    <span class="info">Par défaut : Open</span>
+                    <select name="state" id="state" class="form-control" required>
+                        {% for state in states %}
+                            <option value="{{ state.id }}">{{ state.group_state }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="from_company">De :</label>
+                    <select name="from_company" id="from_company" class="form-control">
+                        {% for company in request.list_company %}
+                            <option value="{{ company.id }}">{{ company.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex items-center justify-center text-blue-500">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M8 19V5l11 7z"/></svg>
+                </div>
+
+                <div class="form-group">
+                    <label for="to_company">À :</label>
+                    <select name="to_company" id="to_company" class="form-control">
+                        {% for company in request.list_company %}
+                            <option value="{{ company.id }}">{{ company.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group col-span-3">
+                    <label for="vat">TVA :</label>
+                    <select name="vat" id="vat" class="form-control" required>
+                        <option value="5.5">5.5%</option>
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                    </select>
+                </div>
+
+                <!-- Section for the lines -->
+                <div class="col-span-3">
+                    <h2 class="text-lg font-semibold mb-2">Produits</h2>
+                    <div id="productLines" class="space-y-2">
+                        <div class="product-line grid grid-cols-5 gap-2">
+                            <div class="col-span-2">
+                                <label for="product_0">Produit :</label>
+                                <select name="products[]" id="product_0" class="form-control w-full">
+                                    {% for product in products %}
+                                        <option value="{{ product.id }}">{{ product.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-span-2">
+                                <label for="quantity_0">Quantité :</label>
+                                <input type="number" name="quantities[]" id="quantity_0" class="form-control w-full" value="1" min="1">
+                            </div>
+                            <div class="col-span-1 flex items-end">
+                                <button type="button" class="btn btn-danger remove-line" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <button type="button" id="addProductLine" class="btn btn-secondary">
+                            + Ajouter un produit
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <button type="submit" class="btn btn-primary">
+                    Ajouter
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    {{ products_json_list|json_script:"products-list" }}
+    <script src="{% static 'order/js/form-add-order.js' %}" defer></script>
+{% endblock %}

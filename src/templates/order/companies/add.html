@@ -5,23 +5,26 @@
 {% block content %}
     <section class="section">
         <h1 class="text-center">Ajouter une société</h1>
-        <form method="post" class="content">
-            {% csrf_token %}
+        <div class="content">
+            <form method="post" class="max-w-4xl mx-auto space-y-4 block">
+                {% csrf_token %}
 
-            {{ form.as_p }}
+                {{ form.as_p }}
 
-            <button type="submit" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><!-- Icon from Gitlab SVGs by GitLab B.V. - https://gitlab.com/gitlab-org/gitlab-svgs/-/blob/main/LICENSE --><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm4 9a.75.75 0 0 1-.75-.75v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5a.75.75 0 0 1 1.5 0v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5A.75.75 0 0 1 8 11" clip-rule="evenodd"/></svg>
-                <span>Ajouter</span>
-            </button>
+                <button type="submit" class="btn btn-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><!-- Icon from Gitlab SVGs by GitLab B.V. - https://gitlab.com/gitlab-org/gitlab-svgs/-/blob/main/LICENSE --><path fill="currentColor" fill-rule="evenodd" d="M4 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm4 9a.75.75 0 0 1-.75-.75v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5a.75.75 0 0 1 1.5 0v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5A.75.75 0 0 1 8 11" clip-rule="evenodd"/></svg>
+                    <span>Ajouter</span>
+                </button>
 
-            {% if form.non_field_errors %}
-                    <div class="mb-4 p-3 bg-red-100 text-red-700 rounded my-4 flex flex-col gap-2">
-                        {% for error in form.non_field_errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-        </form>
+                {% if form.non_field_errors %}
+                        <div class="mb-4 p-3 bg-red-100 text-red-700 rounded my-4 flex flex-col gap-2">
+                            {% for error in form.non_field_errors %}
+                                <p>{{ error }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+            </form>
+        </div>
+
     </section>
 {% endblock %}
