@@ -18,6 +18,7 @@ class CompanyMiddleware:
         else:
             request.current_company = None
 
+        # if authenticated
         if request.user.is_authenticated:
             request.list_company = Company.objects.filter(members=request.user)
             if request.current_company is None and len(request.list_company) > 0:

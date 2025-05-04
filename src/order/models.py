@@ -50,8 +50,8 @@ class Order(models.Model):
     to_company = models.ForeignKey(Company, related_name="order_to", on_delete=models.CASCADE, null=True)
     state = models.ForeignKey(StateOrder, related_name="state_order", on_delete=models.CASCADE)
     vat = models.CharField(max_length=20, choices=VAT.choices, default=VAT.NORMAL)
-    ttc = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Toutes taxes comprises")
-    ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Hors Taxe")
+    ttc = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Toutes taxes comprises", null=True)
+    ht = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Hors Taxe", null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Date de creation")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Date de modification")
 

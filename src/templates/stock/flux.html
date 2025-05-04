@@ -13,18 +13,39 @@
                     Ajouter un mouvement
                 </a>
             </div>
-            <div>
+            <div class="space-y-4">
                 <h2 class="text-xl font-semibold">Commandes entrantes :</h2>
                 <div class="grid grid-cols-3 gap-4">
-                    {% if in.count > 0 %}
-                        {% for order in in.list %}
+                    {% if command_in.count > 0 %}
+                        {% for order in command_in.list %}
                             <div class="card card-compact">
                                 <div class="card-body">
                                     <h3 class="card-title">{{ order.reference }}</h3>
-                                    <p class="card-text">
-                                        <span class="badge badge-secondary">{{ order.from_company.name }}</span>
-                                        <span class="badge badge-secondary">{{ order.to_company.name }}</span>
+                                    <span class="absolute top-1 right-1 badge state-{{ order.state.group_state|lower }}">{{ order.state.name }}</span>
+                                    <p class="flex items-center justify-around text-sm border rounded px-2 py-1 my-1">
+                                        <span>
+                                            {% if order.from_company  %}
+                                                <span class="{% if order.from_company == request.current_company %}badge badge-success{% endif %}">
+                                                    {{ order.from_company.name }}
+                                                </span>
+                                            {% else %}
+                                                <span>Non renseigné</span>
+                                            {% endif %}
+                                        </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="text-blue-600" width="15" height="15" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M8 19V5l11 7z"/></svg>
+                                        <span>
+                                            {% if order.to_company  %}
+                                                <span class="{% if order.to_company == request.current_company %}badge badge-success{% endif %}">
+                                                    {{ order.to_company.name }}
+                                                </span>
+                                            {% else %}
+                                                <span>Non renseigné</span>
+                                            {% endif %}
+                                        </span>
                                     </p>
+                                    <a href="{% url 'order:order_detail' order.id %}" class="btn btn-primary">
+                                        Détail
+                                    </a>
                                 </div>
                             </div>
                         {% endfor %}
@@ -39,7 +60,7 @@
             <h2 class="text-xl font-semibold">Commandes sortantes :</h2>
             <div class="grid grid-cols-3 gap-4">
                 {% if out.count > 0 %}
-                    {% for order in out.list %}
+                    {% for order in command_out.list %}
                         <div class="card card-compact">
                             <div class="card-body">
                                 <h3 class="card-title">{{ order.reference }}</h3>

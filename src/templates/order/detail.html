@@ -1,0 +1,57 @@
+{%  extends "baseDashboard.html" %}
+
+{%  block title %}
+{{ order.reference }}
+{%  endblock %}
+
+{%  block content %}
+<div class="section">
+    <h1>Détail de l'ordre : {{ order.reference }}</h1>
+    <div class="content space-y-4">
+        <div class="border rounded px-2 py-1 my-1 flex flex-col gap-2">
+            <span>Référence : {{ order.reference }}</span>
+            <span>Statut : {{ order.state.name }}</span>
+            <span>Date de création : {{ order.created_at }}</span>
+            <span>Date de modification : {{ order.updated_at }}</span>
+        </div>
+        <!-- Modifier le statut -->
+        {% if order.state.group_state != "Finished" %}
+            <div>
+                <form method="post" action="{% url 'order:order_edit_state' order.id %}">
+                    {% csrf_token %}
+                    <div class="form-group col-span-3">
+                        <label for="state">Statut :</label>
+                        <span class="info">Par défaut : Open</span>
+                        <select name="state" id="state" class="form-control" required>
+                            {% for state in states %}
+                                {% if state.id != order.state.id %}
+                                    <option value="{{ state.id }}">{{ state.name }} - ({{ state.group_state }})</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        Modifier
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+        <div>
+            <h2 class="text-xl font-semibold mb-2">ligne{{ order.lines.count|pluralize }} de commande :</h2>
+            <div>
+                {% for line in order.lines.all %}
+                    <div class="card card-compact">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ line.product.name }}</h3>
+                            <p class="card-text">
+                                <span class="badge badge-secondary">{{ line.quantity }}</span>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+{%  endblock %}

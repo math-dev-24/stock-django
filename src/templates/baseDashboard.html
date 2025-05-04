@@ -57,19 +57,24 @@
                     <span>Mes sociétés</span>
                     <span class="badge badge-indigo">{{ nombre_company }}</span>
                 </a>
-                <span class="separator"></span>
-                <span class="ml-4 font-semibold text-sm">Stock</span>
-                <a href="{% url 'stock:flux' %}" class="{% active_link 'stock:flux' 'current_link' 'link-dash' strict=True %}">
-                    Flux
-                </a>
-                <a class="link-dash">
-                    Ventes
-                </a>
-                <span class="separator"></span>
-                <span class="ml-4 font-semibold text-sm">Paramètres</span>
-                <a href="{% url 'order:state_list' %}" class="{% active_link 'order:state_list' 'current_link' 'link-dash' strict=True %}">
-                    Statut
-                </a>
+                {%  if request.current_company %}
+                    <span class="separator"></span>
+                    <span class="ml-4 font-semibold text-sm">Stock</span>
+                    <a href="{% url 'stock:flux' %}" class="{% active_link 'stock:flux' 'current_link' 'link-dash' strict=True %}">
+                        <span>Flux</span>
+                        <span class="badge badge-indigo">{{ nombre_order }}</span>
+                    </a>
+                    <a href="{% url 'stock:inventory' %}" class="{% active_link 'stock:inventory' 'current_link' 'link-dash' strict=True %}">
+                        <span>Inventaire</span>
+                        <span class="badge badge-indigo">{{ nombre_inventories }}</span>
+                    </a>
+                    <span class="separator"></span>
+                    <span class="ml-4 font-semibold text-sm">Paramètres</span>
+                    <a href="{% url 'order:state_list' %}" class="{% active_link 'order:state_list' 'current_link' 'link-dash' strict=True %}">
+                        <span>Statut</span>
+                        <span class="badge badge-indigo">{{ nombre_state }}</span>
+                    </a>
+                {% endif %}
                 <span class="separator"></span>
                 <a href="{% url 'user:logout' %}" class="{% active_link 'user:logout' 'current_link' 'link-dash'%}">Déconnexion</a>
             </nav>

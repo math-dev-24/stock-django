@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from catalog.models import Product, Category
 from order.models import Order
+from .models import Inventory
 
 
 def home_view(request):
@@ -45,19 +46,35 @@ def dashboard_view(request):
 
 @login_required
 def flux_view(request):
-    current_company = request.session.get('current_company')
+    current_company = request.current_company
 
-    command_in = Order.objects.filter(to_company=current_company)
-    command_out = Order.objects.filter(from_company=current_company)
+    command_in = Order.objects.filter(to_company_id=current_company.id)
+    command_out = Order.objects.filter(from_company_id=current_company.id)
 
     context = {
-        "in": {
+        "command_in": {
             "list": command_in,
             "count": command_in.count()
         },
-        "out": {
+        "command_out": {
             "list": command_out,
             "count": command_out.count()
         }
     }
     return render(request, "stock/flux.html", context)
+
+
+@login_required
+def inventory_view(request):
+    current_company = request.current_company
+
+    inventories = Inventory.objects.filter(company=current_company)
+
+    context = {
+        "inventories": {
+            "list": inventories,
+            "count": inventories.count()
+        },
+        "count": inventories.count()
+    }
+    return render(request, "stock/inventory.html", context)

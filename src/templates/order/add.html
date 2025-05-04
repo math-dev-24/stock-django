@@ -20,7 +20,7 @@
                     <span class="info">Par défaut : Open</span>
                     <select name="state" id="state" class="form-control" required>
                         {% for state in states %}
-                            <option value="{{ state.id }}">{{ state.group_state }}</option>
+                            <option value="{{ state.id }}">{{ state.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

@@ -74,6 +74,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'catalog.context_processors.global_context_catalog',
                 'order.context_processors.global_context_order',
+                'stock.context_processors.global_context_stock',
             ],
         },
     },

@@ -596,22 +596,6 @@ video {
   left: 25%;
 }
 
-.right-2 {
-  right: 0.5rem;
-}
-
-.top-0 {
-  top: 0px;
-}
-
-.top-1\/4 {
-  top: 25%;
-}
-
-.top-2 {
-  top: 0.5rem;
-}
-
 .right-0 {
   right: 0px;
 }
@@ -620,8 +604,24 @@ video {
   right: 0.25rem;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
+.top-0 {
+  top: 0px;
+}
+
 .top-1 {
   top: 0.25rem;
+}
+
+.top-1\/4 {
+  top: 25%;
+}
+
+.top-2 {
+  top: 0.5rem;
 }
 
 .z-0 {
@@ -2046,6 +2046,43 @@ input:focus, select:focus, textarea:focus {
   background-color: rgb(240 253 244 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(21 128 61 / var(--tw-text-opacity));
+}
+
+.card {
+  position: relative;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity));
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  .card-body {
+    display: flex;
+  }
+  .card-body {
+    flex-direction: column;
+  }
+  .card-body {
+    gap: 0.5rem;
+  }
+  .card-body {
+    .card-title {
+      font-size: 1.125rem;
+      line-height: 1.75rem;
+    }
+    .card-title {
+      font-weight: 600;
+    }
+    .card-text {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+  }
 }
 
 .hover\:border-blue-300:hover {
