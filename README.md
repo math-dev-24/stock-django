@@ -79,3 +79,6 @@ Affichage des données de façon lisible et agréable pour l'utilisateur avec la
 
 ## Inventaire
 ![inventory](./demo/inventory.png)
+
+## Detail inventaire
+![inventory-detail](./demo/detail-inventory.png)
