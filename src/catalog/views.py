@@ -41,7 +41,11 @@ def product_list_view(request):
         "category_filtered": category
     }
 
-    return render(request, "catalog/product/list.html", context)
+    return render(
+        request,
+        "catalog/product/list.html",
+        context
+    )
 
 
 @login_required
