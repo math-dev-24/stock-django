@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
 from .models import Company
 from catalog.models import Product, Price
-from stock.models import Inventory
-from .models import StateOrder, Order, LineOrder
+from .models import StateOrder, Order
 from .forms import AddCompanyFrom, AddStateOrderForm
 from django.db.models import OuterRef, Subquery, F
 

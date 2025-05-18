@@ -1,0 +1,72 @@
+[
+  {
+    "model": "order.StateOrder",
+    "pk": 1,
+    "fields": {
+      "name": "En cours",
+      "group_state": "Open",
+      "created_at": "2025-01-10T09:00:00.000Z",
+      "updated_at": "2025-01-10T09:00:00.000Z"
+    }
+  },
+  {
+    "model": "order.StateOrder",
+    "pk": 2,
+    "fields": {
+      "name": "En attente",
+      "group_state": "Pending",
+      "created_at": "2025-01-15T10:30:00.000Z",
+      "updated_at": "2025-01-15T10:30:00.000Z"
+    }
+  },
+  {
+    "model": "order.StateOrder",
+    "pk": 3,
+    "fields": {
+      "name": "Bloqué",
+      "group_state": "Pending",
+      "created_at": "2025-02-01T14:15:00.000Z",
+      "updated_at": "2025-02-01T14:15:00.000Z"
+    }
+  },
+  {
+    "model": "order.StateOrder",
+    "pk": 4,
+    "fields": {
+      "name": "Attente BT",
+      "group_state": "Pending",
+      "created_at": "2025-02-10T11:45:00.000Z",
+      "updated_at": "2025-02-10T11:45:00.000Z"
+    }
+  },
+  {
+    "model": "order.StateOrder",
+    "pk": 3,
+    "fields": {
+      "name": "Terminé",
+      "group_state": "Finished",
+      "created_at": "2025-02-01T14:15:00.000Z",
+      "updated_at": "2025-02-01T14:15:00.000Z"
+    }
+  },
+  {
+    "model": "order.StateOrder",
+    "pk": 4,
+    "fields": {
+      "name": "Annulé",
+      "group_state": "Finished",
+      "created_at": "2025-02-10T11:45:00.000Z",
+      "updated_at": "2025-02-10T11:45:00.000Z"
+    }
+  },
+  {
+    "model": "order.StateOrder",
+    "pk": 5,
+    "fields": {
+      "name": "Refusé",
+      "group_state": "Finished",
+      "created_at": "2025-03-05T08:30:00.000Z",
+      "updated_at": "2025-03-05T08:30:00.000Z"
+    }
+  }
+]
