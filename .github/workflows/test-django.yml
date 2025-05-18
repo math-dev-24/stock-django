@@ -44,9 +44,16 @@ jobs:
       run: |
         coverage run --source='.' manage.py test
         coverage report
+        coverage html -d coverage_html
         
     - name: Upload Coverage Report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # Mise à jour vers v4
       with:
         name: coverage-report-${{ matrix.python-version }}
         path: .coverage
+        
+    - name: Upload HTML Coverage Report
+      uses: actions/upload-artifact@v4  # Mise à jour vers v4
+      with:
+        name: coverage-html-${{ matrix.python-version }}
+        path: coverage_html
