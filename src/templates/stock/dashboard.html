@@ -17,32 +17,52 @@
             <a href="{% url 'order:company_add' %}" class="btn btn-success" >
                 Ajouter une société
             </a>
+            <div class="min-w-1 min-h-2/3 bg-slate-400 rounded"></div>
+            <a href="{% url 'stock:inventory_export' %}" class="btn btn-danger" >
+                Export CSV des stocks
+            </a>
         </div>
 
         <!-- Tableau de bord -->
         <div class="grid grid-cols-3 gap-4">
-            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300">
-                <h2 class="text-xl font-semibold">
-                    <a href="{% url 'catalog:product_list' %}" class="hover:underline hover:text-blue-500">Produit{{ products.count|pluralize }} :</a>
-                </h2>
+            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300 text-center">
                 <p class="text-3xl font-bold">
                    {{ products.count }}
                 </p>
+                <p>
+                    <a href="{% url 'catalog:product_list' %}"  class="text-blue-500">
+                        Produit{{ products.count|pluralize }}
+                    </a>
+                </p>
             </div>
-            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-orange-300">
-                <h2 class="text-xl font-semibold">
-                    <a href="{% url 'catalog:category_list' %}" class="hover:underline hover:text-orange-500">Catégorie{{ categories.count|pluralize }} :</a>
-                </h2>
+            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-orange-300 text-center">
                 <p class="text-3xl font-bold">
                     {{ categories.count }}
                 </p>
+                <p>
+                    <a href="{% url 'catalog:category_list' %}" class="text-orange-500">
+                        Catégorie{{ categories.count|pluralize }}
+                    </a>
+                </p>
             </div>
-            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-slate-300">
-                <h2 class="text-xl font-semibold">
-                    <a href="{% url 'order:company_list' %}" class=" hover:underline hover:text-slate-500">Société{{ companies.count|pluralize }} :</a>
-                </h2>
+            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-slate-300 text-center">
                 <p class="text-3xl font-bold">
                     {{ companies.count }}
+                </p>
+                <p>
+                    <a href="{% url 'order:company_list' %}" class="text-slate-500">
+                        Société{{ companies.count|pluralize }}
+                    </a>
+                </p>
+            </div>
+            <div class="border rounded bg-white drop-shadow py-6 px-4 hover:border-green-300 text-center">
+                <p class="text-3xl font-bold">
+                    {{ nombre_inventories }}
+                </p>
+                <p>
+                    <a href="{% url 'stock:inventory' %}" class="text-green-500">
+                        produit{{ nombre_inventories|pluralize }} en stock
+                    </a>
                 </p>
             </div>
         </div>

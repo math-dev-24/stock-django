@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from catalog.models import Product, Category
-from order.models import Order
+from order.models import Order, Company
 from .models import Inventory
 
 
@@ -102,3 +102,34 @@ def inventory_detail_view(request, inventory_id):
     }
 
     return render(request, "stock/inventory-detail.html", context)
+
+
+@login_required
+def inventory_export_view(request):
+    import csv
+    from django.http import HttpResponse
+
+    user = request.user
+
+    companies = Company.objects.filter(members=user)
+
+    inventories = Inventory.objects.filter(company__in=companies)
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="inventory.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(["id", "company", "product", "in_stock", "in_transit", "updated_at"])
+
+    # Données
+    for inventory in inventories:
+        writer.writerow([
+            inventory.id,
+            inventory.company.name,
+            inventory.product.name,
+            inventory.in_stock,
+            inventory.in_transit,
+            inventory.updated_at
+        ])
+
+    return response

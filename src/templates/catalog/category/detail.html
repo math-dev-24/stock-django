@@ -4,7 +4,14 @@
 
 {% block content %}
     <section class="section">
+    <div class="flex justify-between items-center">
         <h1>{{ category.name }}</h1>
+        <a href="{% url 'catalog:category_edit' category.id %}" class="btn btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+            </svg>
+        </a>
+    </div>
         <div class="content">
             <div>
                 <p class="text-sm text-gray-600">Description</p>
@@ -21,7 +28,7 @@
                     {% for product in category.products.all %}
                         <div class="flex gap-2 items-center border-b border-gray-300 py-2 px-4 w-full hover:bg-blue-100 transition-all duration-200">
                             <a href="{% url 'catalog:product_detail' product.id %}">{{ product.name }}</a>
-                            <span class="badge badge-primary text-sm">{{ product.prices.first.price }} €</span>
+                            <span class="badge badge-primary text-sm">{{ product.prices.last.price }} €</span>
                         </div>
                     {% endfor %}
                 </div>
