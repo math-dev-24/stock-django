@@ -77,8 +77,6 @@ def change_company(request):
 
 @login_required
 def add_order_view(request):
-    products = Product.objects.all()
-    states = StateOrder.objects.all()
 
     latest_prices = Price.objects.filter(
         product=OuterRef('pk')

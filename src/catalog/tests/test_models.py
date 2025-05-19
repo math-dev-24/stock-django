@@ -12,7 +12,7 @@ class ProductTest(TestCase):
     def test_categories_count(self):
         self.assertEqual(Category.objects.count(), 25)
 
-    def test_category(self):
+    def test_specific_category(self):
         category = Category.objects.get(name="Électronique")
         self.assertEqual(category.name, "Électronique")
         self.assertEqual(category.description, "Tous les produits électroniques, gadgets et appareils")
