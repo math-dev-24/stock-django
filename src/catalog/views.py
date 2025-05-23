@@ -108,9 +108,24 @@ def add_category_view(request):
 
 def category_list_view(request):
     categories = Category.objects.all()
+    params = request.GET.dict()
+    search = params.get('search', '')
+
+    if search:
+        categories = Category.objects.filter(name__icontains=search)
+    else:
+        categories = Category.objects.all()
+
+    items_per_page = 6
+    page = int(params.get('page', 1))
+    max_page = floor(len(categories)/items_per_page)+1
+
     context = {
-        "categories": categories,
-        "count": len(categories)
+        "categories": categories[items_per_page*(page-1):items_per_page*page],
+        "count": len(categories),
+        "max_page": max_page,
+        "page": page,
+        "search": search,
     }
     return render(request, "catalog/category/list.html", context)
 
