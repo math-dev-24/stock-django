@@ -66,8 +66,6 @@ Affichage des données de façon lisible et agréable pour l'utilisateur avec la
 ## Vue catalogue produits
 ![catalogue-product](./demo/list-product.png)
 
-![catalogue-product](./demo/list-product-2.png)
-
 ## Vue détaillée produit
 ![detail-product](./demo/detail-product.png)
 
