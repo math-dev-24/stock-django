@@ -42,12 +42,11 @@
                             </div>
                             <div class="separator"></div>
                             <div class="grid grid-cols-3 gap-2 mx-2 my-1">
-                                <form method="POST" action="{% url 'catalog:category_delete' category.id %}" class="btn btn-danger-2 m-0">
-                                    {% csrf_token %}
-                                    <button type="submit" class="text-red-600 hover:text-red-800 font-medium flex items-center bg-transparent border-0 p-0 cursor-pointer">
+                                <div id="category-delete-{{ category.id }}" class="btn btn-danger-2 m-0 btn-delete-category" content="{{ category.name }}">
+                                    <button class="text-red-600 hover:text-red-800 font-medium flex items-center bg-transparent border-0 p-0 cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 17h2V8H9zm4 0h2V8h-2zm-8 4V6H4V4h5V3h6v1h5v2h-1v15z"/></svg>
                                     </button>
-                                </form>
+                                </div>
                                 <a href="{% url 'catalog:category_detail' category.id %}" class="btn btn-primary m-0">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><!-- Icon from Google Material Icons by Material Design Authors - https://github.com/material-icons/material-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2zM14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3z"/></svg>
                                 </a>
@@ -57,6 +56,14 @@
                                     </svg>
                                 </a>
                             </div>
+                            <form
+                                    id="delete-category-{{ category.id }}"
+                                    method="post"
+                                    action="{% url 'catalog:category_delete' category.id %}"
+                                    class="hidden"
+                            >
+                                {% csrf_token %}
+                            </form>
                         </div>
                    {%  endfor %}
                </div>
@@ -93,5 +100,6 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'catalog/js/filter-category.js' %}"></script>
+    <script src="{% static 'catalog/js/filter-category.js' %}"></script>
+    <script src="{% static 'catalog/js/delete-category.js' %}"></script>
 {% endblock %}
