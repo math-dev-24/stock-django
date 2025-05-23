@@ -1,4 +1,5 @@
 {% extends 'baseDashboard.html' %}
+{% load static %}
 
 {% block title %}Liste des états{% endblock %}
 
@@ -15,7 +16,7 @@
             {%  if states %}
                 <div class="grid grid-cols-3 gap-4">
                     {% for state in states %}
-                        <div class="border relative flex flex-col gap-1 rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300 state-{{ state.group_state|lower }}">
+                        <div id="state-{{ state.id }}" class="state border relative flex flex-col gap-1 rounded bg-white drop-shadow py-6 px-4 hover:border-blue-300 state-{{ state.group_state|lower }}">
                             <h2 class="text-xl font-semibold">
                                 {{ state.name }}
                             </h2>
@@ -27,7 +28,7 @@
                                 <a href="{% url 'order:state_edit' state.id %}" class="btn btn-indigo-outline">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M9 15v-4.25l9.175-9.175q.3-.3.675-.45t.75-.15q.4 0 .763.15t.662.45L22.425 3q.275.3.425.663T23 4.4t-.137.738t-.438.662L13.25 15zm10.6-9.2l1.425-1.4l-1.4-1.4L18.2 4.4zM5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h8.925L7 9.925V17h7.05L21 10.05V19q0 .825-.587 1.413T19 21z"/></svg>
                                 </a>
-                                <a href="{% url 'order:state_delete' state.id %}" class="btn btn-danger-2">
+                                <a id="state-{{ state.id }}" class="btn btn-danger-2 btn-delete-state" content="{{ state.name }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path fill="currentColor" d="M0 0h24v24H0z" fill-opacity=".04"/></svg>
                                 </a>
                             </div>
@@ -35,6 +36,13 @@
                                 {{ state.updated_at|date:"d/m/Y H:i" }}
                             </span>
                         </div>
+                        <form id="delete-state-{{ state.id }}" method="post" action="{% url 'order:state_delete' state.id %}" class="hidden">
+                            {% csrf_token %}
+                            <input type="hidden" name="state_id" value="{{ state.id }}">
+                            <button type="submit" class="btn btn-danger-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24"><!-- Icon from Material Symbols by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path fill="currentColor" d="M0 0h24v24H0z" fill-opacity=".04"/></svg>
+                            </button>
+                        </form>
                     {% endfor %}
                 </div>
             {% else %}
@@ -42,7 +50,11 @@
                     Aucun état n'a été trouvé. Veuillez en ajouter un.
                 </div>
             {% endif %}
-        </div>
+            </div>
         </div>
     </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'order/js/delete-state.js' %}"></script>
 {% endblock %}

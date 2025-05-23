@@ -109,6 +109,7 @@ def add_category_view(request):
 def category_list_view(request):
     categories = Category.objects.all()
     params = request.GET.dict()
+
     search = params.get('search', '')
 
     if search:
