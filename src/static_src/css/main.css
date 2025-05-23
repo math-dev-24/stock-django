@@ -126,11 +126,16 @@ nav {
 }
 
 .link-dash {
-    @apply hover:bg-blue-500 hover:text-white transition-all duration-200 p-2;
+    @apply hover:bg-blue-500 hover:text-white transition-all duration-200 py-2 px-4;
+    @apply flex items-center gap-1;
 }
 
-.current_link {
-    @apply bg-blue-500 text-white p-2;
+.current-link {
+    @apply bg-blue-500 text-white py-2 px-4 flex items-center gap-1;
+}
+
+.unconnected-link {
+    @apply hover:bg-red-500 transition-all duration-200 p-2;
 }
 
 .separator {
