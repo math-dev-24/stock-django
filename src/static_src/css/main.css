@@ -38,7 +38,7 @@
     @apply bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
 }
 
-.btn-danger {
+.btn-danger, .btn-error {
     @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
 }
 
@@ -105,7 +105,7 @@ nav {
     @apply bg-gray-600 text-white;
 }
 
-.badge-danger {
+.badge-danger, .badge-error {
     @apply bg-red-600 text-white;
 }
 
@@ -144,7 +144,7 @@ nav {
     @apply bg-green-100 text-green-700;
 }
 
-.alert-danger {
+.alert-error, .alert-danger {
     @apply bg-red-100 text-red-700;
 }
 
@@ -161,7 +161,7 @@ nav {
     @apply bg-gray-600;
 }
 
-.progress-bar-danger {
+.progress-bar-danger, .progress-bar-error {
     @apply bg-red-600;
 }
 

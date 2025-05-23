@@ -1640,19 +1640,19 @@ video {
   --tw-ring-color: rgb(107 114 128 / var(--tw-ring-opacity));
 }
 
-.btn-danger {
+.btn-danger, .btn-error {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.btn-danger:hover {
+.btn-danger:hover, .btn-error:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
-.btn-danger:focus {
+.btn-danger:focus, .btn-error:focus {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(239 68 68 / var(--tw-ring-opacity));
 }
@@ -1880,7 +1880,7 @@ nav {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.badge-danger {
+.badge-danger, .badge-error {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
@@ -1962,7 +1962,7 @@ nav {
   color: rgb(21 128 61 / var(--tw-text-opacity));
 }
 
-.alert-danger {
+.alert-error, .alert-danger {
   --tw-bg-opacity: 1;
   background-color: rgb(254 226 226 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
@@ -1988,7 +1988,7 @@ nav {
   background-color: rgb(75 85 99 / var(--tw-bg-opacity));
 }
 
-.progress-bar-danger {
+.progress-bar-danger, .progress-bar-error {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }

@@ -88,7 +88,7 @@
     </main>
     <div class="fixed top-2 right-2" id="popup">
         {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show relative py-4 px-6 rounded-md min-w-[450px]">
+            <div class="alert alert-{{ message.tags }} relative py-4 px-6 rounded-md min-w-[450px]">
                 {{ message }}
                 <div class="absolute bottom-0 left-0 progress-bar-3 progress-bar-{{ message.tags }}"></div>
             </div>
