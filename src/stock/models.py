@@ -52,8 +52,8 @@ class Inventory(models.Model):
             )
 
     @classmethod
-    def available_quantity(cls, company, product, needed_quantity) -> bool:
-        inventory = Inventory.objects.filter(company=company, product=product)
+    def available_quantity(cls, company_id, product, needed_quantity) -> bool:
+        inventory = Inventory.objects.filter(company_id=company_id, product=product)
         if not inventory.exists():
             return False
         return inventory.first().in_stock >= needed_quantity

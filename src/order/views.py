@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 
+from stock.models import Inventory
 from .models import Company
 from catalog.models import Product, Price
 from .models import StateOrder, Order
@@ -113,6 +114,25 @@ def add_order_view(request):
             "product": Product.objects.get(pk=product_id),
             "quantity": int(quantities[i])
         } for i, product_id in enumerate(product_ids)]
+
+        # Check if product is available
+        if from_company_id:
+            for line in line_orders:
+                if not Inventory.available_quantity(
+                        from_company_id,
+                        line["product"],
+                        line["quantity"]
+                ):
+                    tmp_inv = Inventory.objects.filter(company_id=from_company_id, product=line["product"])
+                    if tmp_inv:
+                        messages.error(
+                            request,
+                            f"Produit : {line['product'].name}, Quantité : {line['quantity']}, Disponible : {tmp_inv.first().in_stock}"
+                        )
+                    else:
+                        messages.error(request, "Produit non disponible.")
+                    is_valid = False
+                    break
 
         if not reference:
             messages.error(request, "Veuillez saisir une référence.")
