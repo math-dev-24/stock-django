@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 
 from catalog.forms import AddProductForm, AddCategoryForm, EditProductForm
 from catalog.models import Product, Category
-from math import floor
+from math import ceil
 
 
 def product_list_view(request):
@@ -27,7 +27,7 @@ def product_list_view(request):
 
     items_per_page = 6
     page = int(params.get('page', 1))
-    max_page = floor(len(products)/items_per_page)+1
+    max_page = ceil(len(products)/items_per_page)
 
     context = {
         'is_admin': request.user.is_staff,
@@ -118,10 +118,13 @@ def category_list_view(request):
 
     items_per_page = 6
     page = int(params.get('page', 1))
-    max_page = floor(len(categories)/items_per_page)+1
+    max_page = ceil(len(categories)/items_per_page)
+
+    sorted_categories = sorted(categories, key=lambda c: c.name)
+    filtered_categories = sorted_categories[items_per_page*(page-1):items_per_page*page]
 
     context = {
-        "categories": categories[items_per_page*(page-1):items_per_page*page],
+        "categories": filtered_categories,
         "count": len(categories),
         "max_page": max_page,
         "page": page,
