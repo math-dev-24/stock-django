@@ -13,11 +13,12 @@ from django.db.models import OuterRef, Subquery, F
 
 @login_required
 def company_list_view(request):
-    company = Company.objects.all()
+    # Utiliser les entreprises de l'utilisateur connecté seulement
+    user_companies = Company.objects.filter(members=request.user)
 
     context = {
-        'company': company,
-        'nombre_company': company.count(),
+        'company': user_companies,
+        'nombre_company': user_companies.count(),
     }
 
     return render(request, "order/companies/list.html", context)
@@ -43,12 +44,13 @@ def add_company_view(request):
 @login_required
 def company_detail_view(request, id):
     try:
-        company = Company.objects.get(pk=id)
+        # Vérifier que l'utilisateur est membre de cette entreprise
+        company = Company.objects.get(pk=id, members=request.user)
         return render(request, "order/companies/detail.html", {
             "company": company
         })
     except Company.DoesNotExist:
-        messages.error(request, "Cette société n'existe pas.")
+        messages.error(request, "Cette société n'existe pas ou vous n'y avez pas accès.")
         return redirect('stock:dashboard')
 
 
@@ -65,13 +67,14 @@ def change_company(request):
         return redirect(next_url)
 
     try:
-        company = Company.objects.get(pk=id_company)
+        # Vérifier que l'utilisateur est membre de cette entreprise
+        company = Company.objects.get(pk=id_company, members=request.user)
         request.session['company_id'] = str(company.id)
         request.session['company_name'] = company.name
         request.session.modified = True
         messages.success(request, f"Magasin changé : {company.name}")
     except Company.DoesNotExist:
-        messages.error(request, "Ce magasin n'existe pas.")
+        messages.error(request, "Ce magasin n'existe pas ou vous n'y avez pas accès.")
 
     return redirect(next_url)
 
@@ -145,6 +148,17 @@ def add_order_view(request):
             messages.error(request, "Veuillez sélectionner une TVA.")
             is_valid = False
 
+        # Vérifier que les entreprises sélectionnées appartiennent à l'utilisateur
+        user_companies = Company.objects.filter(members=request.user)
+        if from_company_id:
+            if not user_companies.filter(pk=from_company_id).exists():
+                messages.error(request, "Vous n'avez pas accès à l'entreprise source.")
+                is_valid = False
+        if to_company_id:
+            if not user_companies.filter(pk=to_company_id).exists():
+                messages.error(request, "Vous n'avez pas accès à l'entreprise destination.")
+                is_valid = False
+
         if not is_valid:
             return render(request, "order/add.html", context)
 
@@ -206,7 +220,13 @@ def state_edit_view(request, state_id):
 
 @login_required
 def company_edit_view(request, id):
-    company = Company.objects.get(pk=id)
+    try:
+        # Vérifier que l'utilisateur est membre de cette entreprise
+        company = Company.objects.get(pk=id, members=request.user)
+    except Company.DoesNotExist:
+        messages.error(request, "Cette société n'existe pas ou vous n'y avez pas accès.")
+        return redirect('order:company_list')
+    
     if request.method == 'POST':
         form = AddCompanyFrom(request.POST, instance=company)
         if form.is_valid():
@@ -223,7 +243,30 @@ def company_edit_view(request, id):
 
 @login_required
 def order_detail_view(request, order_id):
-    order = Order.objects.get(pk=order_id)
+    try:
+        # Vérifier que l'utilisateur a accès à cette commande
+        # (soit via from_company soit via to_company)
+        order = Order.objects.get(
+            pk=order_id
+        )
+        
+        # Vérifier que l'utilisateur est membre d'au moins une des entreprises liées à la commande
+        user_companies = Company.objects.filter(members=request.user)
+        has_access = False
+        
+        if order.from_company and order.from_company in user_companies:
+            has_access = True
+        elif order.to_company and order.to_company in user_companies:
+            has_access = True
+            
+        if not has_access:
+            messages.error(request, "Vous n'avez pas accès à cette commande.")
+            return redirect('stock:dashboard')
+            
+    except Order.DoesNotExist:
+        messages.error(request, "Cette commande n'existe pas.")
+        return redirect('stock:dashboard')
+    
     states = StateOrder.objects.all()
     context = {
         "order": order,
@@ -236,6 +279,27 @@ def order_detail_view(request, order_id):
 def order_edit_state_view(request, order_id):
     if not request.method == 'POST':
         return redirect('order:order_detail', order_id)
+
+    try:
+        # Vérifier que l'utilisateur a accès à cette commande
+        order = Order.objects.get(pk=order_id)
+        
+        # Vérifier que l'utilisateur est membre d'au moins une des entreprises liées à la commande
+        user_companies = Company.objects.filter(members=request.user)
+        has_access = False
+        
+        if order.from_company and order.from_company in user_companies:
+            has_access = True
+        elif order.to_company and order.to_company in user_companies:
+            has_access = True
+            
+        if not has_access:
+            messages.error(request, "Vous n'avez pas accès à cette commande.")
+            return redirect('stock:dashboard')
+            
+    except Order.DoesNotExist:
+        messages.error(request, "Cette commande n'existe pas.")
+        return redirect('stock:dashboard')
 
     state_id = request.POST.get('state')
     new_state = StateOrder.objects.get(pk=state_id)
