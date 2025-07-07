@@ -90,18 +90,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    "default-test": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db-test.sqlite3",
-        "TEST": {
-            "NAME": ":memory:"
-        },
     }
 }
-
-if 'test' in sys.argv:
-    DATABASES['default'] = DATABASES['default-test']
 
 
 # Password validation

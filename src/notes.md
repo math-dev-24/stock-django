@@ -1,0 +1,8 @@
+- Tu avais versionner du pycache
+- Tu avais exclu les fichiers de migrations, mais il faut les versionner
+- Tu avais supprimé le lien built in de l'admin, mais il faut le garder
+- Tu as versionné la secret key de django, mais il faut la garder secrète
+- Pas besoin de configurer une base de test, Django le fait automatiquement
+- La modification de mot de passe peut-être intéressante à mettre en place (Django possède des mécanismes pour ça)
+- J'ai modifié pas mal de tes vues pour être sûr qu'un utilisateur qui ne fait pas partie de l'entreprise ne puisse pas accéder aux données d'une autre entreprise
+- C'est super que tu te mettes aux tests comme ça ! Bien jouer le chargement des fixtures !

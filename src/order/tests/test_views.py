@@ -10,14 +10,26 @@ class OrderViewsTestCase(TestCase):
 
     def setUp(self):
         from django.contrib.auth.models import User
-        User.objects.create_user(username='test', password='test')
+        from order.models import Company
+        
+        # Créer l'utilisateur de test
+        self.test_user = User.objects.create_user(username='test', password='test')
+        
+        # Ajouter l'utilisateur de test comme membre de certaines entreprises
+        companies = Company.objects.filter(pk__in=[
+            "f47ac10b-58cc-4372-a567-0e02b2c3d479",  # Tech Solutions SAS
+            "e86b1b4c-0e34-4ffc-9043-a5e621c4d6c3"   # Digital Agency SARL
+        ])
+        for company in companies:
+            company.members.add(self.test_user)
 
     def test_list_company_view_with_permission(self):
         self.client.login(username="test", password="test")
         response = self.client.get(reverse('order:company_list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "order/companies/list.html")
-        self.assertEqual(response.context["nombre_company"], 5)
+        # L'utilisateur de test est maintenant membre de 2 entreprises
+        self.assertEqual(response.context["nombre_company"], 2)
 
     def test_list_company_view_without_permission(self):
         response = self.client.get(reverse('order:company_list'))
