@@ -17,7 +17,7 @@ class OrderViewsTestCase(TestCase):
         response = self.client.get(reverse('order:company_list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "order/companies/list.html")
-        self.assertEqual(response.context["nombre_company"], 5)
+        self.assertEqual(response.context["nombre_company"], 2)
 
     def test_list_company_view_without_permission(self):
         response = self.client.get(reverse('order:company_list'))

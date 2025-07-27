@@ -44,8 +44,16 @@
                         <div class="card-body">
                             <h3 class="card-title">{{ line.product.name }}</h3>
                             <p class="card-text">
-                                <span class="badge badge-secondary">{{ line.quantity }}</span>
+                                <span class="badge badge-secondary">Quantité : {{ line.quantity }}</span>
                             </p>
+                            <div class="flex gap-2">
+                                {% if line.price %}
+                                    <span class="badge badge-primary">Prix : {{ line.price }}</span>
+                                {% endif %}
+                                {% if line.comment %}
+                                    <span class="badge badge-primary">Commentaire : {{ line.comment }}</span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 {% endfor %}

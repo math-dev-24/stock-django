@@ -13,7 +13,7 @@ from django.db.models import OuterRef, Subquery, F
 
 @login_required
 def company_list_view(request):
-    company = Company.objects.all()
+    company = Company.objects.filter(members=request.user)
 
     context = {
         'company': company,
@@ -43,12 +43,14 @@ def add_company_view(request):
 @login_required
 def company_detail_view(request, id):
     try:
-        company = Company.objects.get(pk=id)
+        company = Company.objects.get(pk=id, members=request.user)
+
         return render(request, "order/companies/detail.html", {
             "company": company
         })
+    
     except Company.DoesNotExist:
-        messages.error(request, "Cette société n'existe pas.")
+        messages.error(request, "Cette société n'existe pas ou vous n'avez pas accès.")
         return redirect('stock:dashboard')
 
 
@@ -65,13 +67,13 @@ def change_company(request):
         return redirect(next_url)
 
     try:
-        company = Company.objects.get(pk=id_company)
+        company = Company.objects.get(pk=id_company, members=request.user)
         request.session['company_id'] = str(company.id)
         request.session['company_name'] = company.name
         request.session.modified = True
         messages.success(request, f"Magasin changé : {company.name}")
     except Company.DoesNotExist:
-        messages.error(request, "Ce magasin n'existe pas.")
+        messages.error(request, "Ce magasin n'existe pas ou vous n'avez pas accès.")
 
     return redirect(next_url)
 
@@ -137,12 +139,17 @@ def add_order_view(request):
         if not reference:
             messages.error(request, "Veuillez saisir une référence.")
             is_valid = False
+
         if not from_company_id and not to_company_id:
             messages.error(request, "Veuillez sélectionner au moins un magasin.")
             is_valid = False
 
         if not vat:
             messages.error(request, "Veuillez sélectionner une TVA.")
+            is_valid = False
+        
+        if not check_order_access(request, from_company_id) or not check_order_access(request, to_company_id):
+            messages.error(request, "Vous n'avez pas accès à l'entreprise source ou destination.")
             is_valid = False
 
         if not is_valid:
@@ -188,7 +195,11 @@ def state_list_view(request):
 
 @login_required
 def state_edit_view(request, state_id):
-    state = StateOrder.objects.get(pk=state_id)
+    try:
+        state = StateOrder.objects.get(pk=state_id)
+    except StateOrder.DoesNotExist:
+        messages.error(request, "Cet état n'existe pas ou vous n'avez pas accès.")
+        return redirect('order:state_list')
 
     if request.method == 'POST':
         form = AddStateOrderForm(request.POST, instance=state)
@@ -206,7 +217,12 @@ def state_edit_view(request, state_id):
 
 @login_required
 def company_edit_view(request, id):
-    company = Company.objects.get(pk=id)
+    try:
+        company = Company.objects.get(pk=id, members=request.user)
+    except Company.DoesNotExist:
+        messages.error(request, "Cette société n'existe pas ou vous n'avez pas accès.")
+        return redirect('stock:dashboard')
+
     if request.method == 'POST':
         form = AddCompanyFrom(request.POST, instance=company)
         if form.is_valid():
@@ -223,12 +239,22 @@ def company_edit_view(request, id):
 
 @login_required
 def order_detail_view(request, order_id):
-    order = Order.objects.get(pk=order_id)
-    states = StateOrder.objects.all()
+    try:
+        order = Order.objects.get(pk=order_id)
+
+        if not check_order_access(request, order):
+            messages.error(request, "Vous n'avez pas accès à cette commande.")
+            return redirect('stock:dashboard')
+
+    except Order.DoesNotExist:
+        messages.error(request, "Cette commande n'existe pas.")
+        return redirect('stock:dashboard')
+    
     context = {
         "order": order,
-        "states": states,
+        "states": StateOrder.objects.all(),
     }
+    
     return render(request, "order/detail.html", context)
 
 
@@ -255,9 +281,19 @@ def order_edit_state_view(request, order_id):
 
 @login_required
 def state_delete_view(request, state_id):
-    state = StateOrder.objects.get(pk=state_id)
     if request.method == 'POST':
+        try:
+            state = StateOrder.objects.get(pk=state_id)
+        except StateOrder.DoesNotExist:
+            messages.error(request, "Cet état n'existe pas ou vous n'avez pas accès.")
+            return redirect('order:state_list')
+
         orders_count = Order.objects.filter(state=state).count()
+
+        if not check_state_access(request, state):
+            messages.error(request, "Vous n'avez pas accès à cet état.")
+            return redirect('order:state_list')
+
         if orders_count == 0:
             state.delete()
             messages.success(request, f"L'état \"{state.name}\" a été supprimé avec succès.")
@@ -265,3 +301,25 @@ def state_delete_view(request, state_id):
         else:
             messages.error(request, f"L'état \"{state.name}\" ne peut pas être supprimé car il y a des commandes associées.")
             return redirect('order:state_list')
+
+
+def check_order_access(request, order):
+    user_companies = Company.objects.filter(members=request.user)
+    has_access = False
+
+    if order.from_company and order.from_company in user_companies:
+        has_access = True
+    elif order.to_company and order.to_company in user_companies:
+        has_access = True
+
+    return has_access
+
+
+def check_state_access(request, state):
+    state_companies = StateOrder.objects.all()
+    has_access = False
+
+    if state.company and state.company in state_companies:
+        has_access = True
+
+    return has_access
