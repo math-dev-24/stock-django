@@ -1,0 +1,17 @@
+[project]
+name = "stock-django"
+version = "0.1.0"
+description = "Stock Management System"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "asgiref",
+    "Django",
+    "django-active-link",
+    "iniconfig",
+    "packaging",
+    "pluggy",
+    "pytest",
+    "sqlparse",
+    "tzdata",
+]
